@@ -1,0 +1,7 @@
+/build
+/CMakeFiles
+/disc_scheduler
+/Makefile
+/.vscode
+/CMakeCache.txt
+/cmake_install.cmake
