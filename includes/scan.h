@@ -1,0 +1,27 @@
+#pragma once
+#include <vector>
+#include "data_struct.h"
+/*Implements the SCAN disk management method.
+SCAN will take a queue and move only in one direction until reaches edge.
+SCAN can recieve new requests while dealing with queue.  
+*/
+class scan{
+private:
+    int MAX_QUEUE;
+    int MAX_TRACKS;
+    std::vector<int> read_queue;
+    direction current_direction;
+    int current_track;    
+
+public:
+    scan(int, int, int);
+    bool full();
+
+private:
+    int next_read_index();
+    int handle_IDLE();
+    int handle_INC();
+    int handle_DEC();
+    bool read_ready();
+
+}

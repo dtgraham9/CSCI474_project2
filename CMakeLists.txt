@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.10.2)
 
 # project name
-project(disc_scheduler)
+project(disk_scheduler)
 
 # creates the variable EXEC and sets it to hello
-set(EXEC disc_scheduler)
+set(EXEC disk_scheduler)
 
 # set the C++17 standard
 set(CMAKE_CXX_STANDARD 17)
