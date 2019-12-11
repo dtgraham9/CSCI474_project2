@@ -11,7 +11,7 @@ private:
     int current_track;  
 
 public:
-    cscan(int, int, direction);
+    cscan(int, int, int, direction);
     bool full();
 
 private:

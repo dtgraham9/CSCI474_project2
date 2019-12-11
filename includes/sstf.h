@@ -1,12 +1,12 @@
 #pragma once
 #include <vector>
 
-class fscan{
+class sstf{
 private:
     std::vector<int> read_queue;
-    int MAX_TRACKS;
     int MAX_QUEUE;
+    int MAX_TRACKS;
     int current_track;
 public:
-    fscan(int, int, int);
+    sstf(int, int, int);
 }

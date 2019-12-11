@@ -2,11 +2,12 @@
 #include <vector>
 #include <cstdlib>
 
-cscan::cscan(int MAX_TRACKS, int MAX_QUEUE, direction set_direction){
+cscan::cscan(int MAX_TRACKS, int MAX_QUEUE, int current_track; direction set_direction){
     this->MAX_QUEUE = MAX_QUEUE;
     this->MAX_TRACKS = MAX_TRACKS;
     read_queue.reserve(MAX_QUEUE);
     this->set_direction = set_direction;
+    this->current_track = current_track;
 }
 
 int cscan::next_read_index(){
