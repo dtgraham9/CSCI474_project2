@@ -3,10 +3,10 @@
 
 class fscan{
 private:
-    std::vector<int> read_queue;
+    std::vector<int> read_buffer;
     int MAX_TRACKS;
-    int MAX_QUEUE;
+    int MAX_BUFFER;
     int current_track;
 public:
     fscan(int, int, int);
-}
+};

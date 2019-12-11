@@ -7,9 +7,9 @@ SCAN can recieve new requests while dealing with queue.
 */
 class scan{
 private:
-    int MAX_QUEUE;
+    int MAX_BUFFER;
     int MAX_TRACKS;
-    std::vector<int> read_queue;
+    std::vector<int> read_buffer;
     direction current_direction;
     int current_track;    
 
@@ -23,5 +23,5 @@ private:
     int handle_INC();
     int handle_DEC();
     bool read_ready();
-
-}
+    void read();
+};

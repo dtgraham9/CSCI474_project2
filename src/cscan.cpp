@@ -2,10 +2,10 @@
 #include <vector>
 #include <cstdlib>
 
-cscan::cscan(int MAX_TRACKS, int MAX_QUEUE, int current_track; direction set_direction){
-    this->MAX_QUEUE = MAX_QUEUE;
+cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_direction){
+    this->MAX_BUFFER = MAX_BUFFER;
     this->MAX_TRACKS = MAX_TRACKS;
-    read_queue.reserve(MAX_QUEUE);
+    read_buffer.reserve(MAX_BUFFER);
     this->set_direction = set_direction;
     this->current_track = current_track;
 }
@@ -36,8 +36,8 @@ int cscan::handle_INC(){
     track requests farther away in the increasing direction
     */
     bool reset_drive_head = true;
-    for(int i = 0; i < read_queue.size(); ++i){
-        diff_track = current_track - read_queue[i];
+    for(int i = 0; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
             return i;
@@ -49,8 +49,8 @@ int cscan::handle_INC(){
             index_track = i;
         }
         //Closet track request to track 0
-        else if(diff_track > 0 && read_queue[i] < opposite_min_diff_track){
-            opposite_min_diff_track = read_queue[i];
+        else if(diff_track > 0 && read_buffer[i] < opposite_min_diff_track){
+            opposite_min_diff_track = read_buffer[i];
             opposite_index_track = i;
         }
     }
@@ -77,15 +77,15 @@ int cscan::handle_DEC(){
     track requests farther away in the increasing direction
     */
     bool reset_drive_head = true;
-    for(int i = 0; i < read_queue.size(); ++i){
-        diff_track = current_track - read_queue[i];
+    for(int i = 0; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
             return i;
         }
         //Going away from track 0
-        else if(diff_track < 0 && (MAX_TRACKS - 1) - read_queue[i] < opposite_min_diff_track){
-            opposite_min_diff_track = (MAX_TRACKS - 1) - read_queue[i];
+        else if(diff_track < 0 && (MAX_TRACKS - 1) - read_buffer[i] < opposite_min_diff_track){
+            opposite_min_diff_track = (MAX_TRACKS - 1) - read_buffer[i];
             opposite_index_track = i;
         }
         //Closet track request to track 0

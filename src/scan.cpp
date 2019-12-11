@@ -4,16 +4,16 @@
 /*
 Reserve the memory needed for the queue and set max disk tracks
 */
-scan::scan(const int MAX_TRACKS, const int MAX_QUEUE, int starting_track){
-    read_queue.reserve(MAX_QUEUE);
+scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
+    read_buffer.reserve(MAX_BUFFER);
     this->MAX_TRACKS = MAX_TRACKS;
-    this->MAX_QUEUE = MAX_QUEUE;
+    this->MAX_BUFFER = MAX_BUFFER;
     current_track = starting_track;
     current_direction = IDLE;
 }
 
 bool scan::full(){
-    return read_queue.size() == MAX_QUEUE;
+    return read_buffer.size() == MAX_BUFFER;
 }
 
 /*
@@ -21,7 +21,7 @@ Check if the request queue has anything to read.
 If it doesn't then the drive will be put into an IDLE state.
 */
 bool scan::read_ready(){
-    if(read_queue.size() > 0){
+    if(read_buffer.size() > 0){
         return true;
     }
     else{
@@ -30,7 +30,9 @@ bool scan::read_ready(){
     }
 }
 /*
-Assumptions: There is a track read request avialable in queue
+Assumptions: There is a track read request avialable in buffer
+
+Post: Will return the index of the next read in the buffer
 */
 int scan::next_read_index(){
     int index = 0;
@@ -49,7 +51,7 @@ int scan::next_read_index(){
 }
 
 /*
-Return the index of the track in read_queue
+Return the index of the track in read_buffer
 that is the closet to the current drive head position
 and also update the direction the drive head will be
 going in.
@@ -59,8 +61,8 @@ int scan::handle_IDLE(){
     int min_diff_track = MAX_TRACKS;
     int index_track = 0;
     direction new_direction = IDLE;
-    for(int i = 0 ; i < read_queue.size(); ++i){
-        diff_track = current_track - read_queue[i];
+    for(int i = 0 ; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
         /*Drive head is currently on requested track.
         Return that track index.
         */
@@ -103,8 +105,8 @@ int scan::handle_INC(){
     */
     bool reverse_direction = true;
     direction new_direction = IDLE;
-    for(int i = 0; i < read_queue.size(); ++i){
-        diff_track = current_track - read_queue[i];
+    for(int i = 0; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
             current_direction = INC;
@@ -147,8 +149,8 @@ int scan::handle_DEC(){
     */
     bool reverse_direction = true;
     direction new_direction = IDLE;
-    for(int i = 0; i < read_queue.size(); ++i){
-        diff_track = current_track - read_queue[i];
+    for(int i = 0; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
             current_direction = INC;
@@ -175,4 +177,19 @@ int scan::handle_DEC(){
         current_direction = DEC;
         return index_track;
     }
+}
+
+/*
+*/
+void scan::read(){
+    int read_index = 0;
+    
+    if(!read_ready()){
+        return;
+    }
+
+    read_index = next_read_index();
+
+    
+
 }

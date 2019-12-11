@@ -8,3 +8,8 @@ INC = increasing track number from 0
 DEC = decreasing from max track number
 */
 enum direction { IDLE, INC, DEC };
+
+typedef struct track_record{
+    int request_track;
+    int track_diff;
+};

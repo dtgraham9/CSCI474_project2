@@ -4,9 +4,9 @@
 
 class cscan{
 private:
-    int MAX_QUEUE;
+    int MAX_BUFFER;
     int MAX_TRACKS;
-    std::vector<int> read_queue;
+    std::vector<int> read_buffer;
     direction set_direction;
     int current_track;  
 
@@ -18,4 +18,4 @@ private:
     int next_read_index();
     int handle_INC();
     int handle_DEC();
-}
+};
