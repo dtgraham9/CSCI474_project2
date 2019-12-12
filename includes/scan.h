@@ -11,7 +11,8 @@ private:
     int MAX_TRACKS;
     std::vector<int> read_buffer;
     direction current_direction;
-    int current_track;    
+    int current_track;  
+    int num_tracks_traversed;  
 
 public:
     scan(int, int, int);

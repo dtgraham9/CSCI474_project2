@@ -1,6 +1,6 @@
 #include "scan.h"
 #include <cstdlib>
-
+#include <iostream>
 /*
 Reserve the memory needed for the queue and set max disk tracks
 */
@@ -10,6 +10,7 @@ scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
     this->MAX_BUFFER = MAX_BUFFER;
     current_track = starting_track;
     current_direction = IDLE;
+    num_tracks_traversed = 0;
 }
 
 bool scan::full(){
@@ -183,13 +184,19 @@ int scan::handle_DEC(){
 */
 void scan::read(){
     int read_index = 0;
-    
+    int requested_track = 0;
+    int diff_tracks = 0;
     if(!read_ready()){
         return;
     }
 
     read_index = next_read_index();
-
+    requested_track = read_buffer[read_index];
+    diff_tracks = abs(requested_track - current_track);
     
+    //Implement logging of track request and travel
 
+    num_tracks_traversed += diff_tracks;
+
+    read_buffer.erase(read_buffer.begin()+read_index);
 }
