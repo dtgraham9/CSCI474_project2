@@ -8,6 +8,8 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     read_buffer.reserve(MAX_BUFFER);
     this->set_direction = set_direction;
     this->current_track = current_track;
+    num_tracks_traversed = 0;
+    //Delete log file if present and create new then close
 }
 
 int cscan::next_read_index(){
@@ -102,4 +104,48 @@ int cscan::handle_DEC(){
     else{
         return index_track;
     }
+}
+
+bool scan::read_ready(){
+    if(read_buffer.size()>0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void scan::read(){
+    int read_index = 0;
+    int requested_track = 0;
+    int diff_tracks = 0;
+    if(!read_ready()){
+        return;
+    }
+
+    read_index = next_read_index();
+    request_track = read_buffer[read_index];
+    diff_tracks = abs(requested_track - current_track);
+
+    //Reopen log file and write entry, then close
+    //Implement logging of track request and travel
+
+    num_tracks_traversed += diff_tracks;
+
+    read_buffer.erase(read_buffer.begin() + read_index);
+    
+}
+
+void scan::add(int track){
+    read_buffer.push_back(track);
+}
+
+void scan::add_tracks(std::vector<int> & tracks){
+    for (int i = 0; i < tracks.size(; ++i){
+        read_buffer.push_back(tracks[i]);
+    }
+}
+
+int scan::space_left(){
+    return MAX_BUFFER - read_buffer.size();
 }

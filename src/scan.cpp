@@ -11,6 +11,7 @@ scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
     current_track = starting_track;
     current_direction = IDLE;
     num_tracks_traversed = 0;
+    //Overwrite log file if present and create new then close
 }
 
 bool scan::full(){
@@ -194,9 +195,29 @@ void scan::read(){
     requested_track = read_buffer[read_index];
     diff_tracks = abs(requested_track - current_track);
     
+    //Reopen log file and write entry, then close
     //Implement logging of track request and travel
 
     num_tracks_traversed += diff_tracks;
 
     read_buffer.erase(read_buffer.begin()+read_index);
+}
+
+/*
+Assumption: There is space available in buffer
+*/
+void scan::add(int track){
+    read_buffer.push_back(track);
+}
+
+void scan::add_tracks(std::vector<int> & tracks)
+{
+    for(int i = 0; i < tracks.size(); ++i){
+        read_buffer.push_back(tracks[i]);
+    }
+}
+
+int scan::space_left(){
+    return MAX_BUFFER - read_buffer.size();
+
 }

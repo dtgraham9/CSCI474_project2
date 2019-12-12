@@ -17,6 +17,10 @@ private:
 public:
     scan(int, int, int);
     bool full();
+    void add(int);
+    void add_tracks(std::vector<int> &);
+    int space_left();
+    void read();
 
 private:
     int next_read_index();
@@ -24,5 +28,5 @@ private:
     int handle_INC();
     int handle_DEC();
     bool read_ready();
-    void read();
+    
 };
