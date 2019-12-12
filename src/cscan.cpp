@@ -9,7 +9,7 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     this->set_direction = set_direction;
     this->current_track = current_track;
     num_tracks_traversed = 0;
-    //Delete log file if present and create new then close
+    //Overwrite log file if present and create new then close
 }
 
 int cscan::next_read_index(){
