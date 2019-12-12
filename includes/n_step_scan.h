@@ -10,6 +10,7 @@ private:
     int current_track;
     int num_tracks_traversed;
     int SMALL_BUFFER;
+    int small_buffer_size;
 public:
     n_step_scan(int,int,int, int, direction);
     int space_left();
