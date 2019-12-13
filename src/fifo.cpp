@@ -8,7 +8,6 @@ fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     this->MAX_TRACKS = MAX_TRACKS;
     this->MAX_BUFFER = MAX_BUFFER;
     this->current_track = current_track;
-    read_buffer.reserve(MAX_BUFFER);
     //Overwrite log file if present and create new then close
     scanfile.open("fifo.log.txt", std::ofstream::out | std::ofstream::trunc);
     if(!scanfile){

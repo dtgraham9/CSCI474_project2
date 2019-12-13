@@ -8,7 +8,6 @@ lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     this->MAX_TRACKS = MAX_TRACKS;
     this->MAX_BUFFER = MAX_BUFFER;
     this->current_track = current_track;
-    read_buffer.reserve(MAX_BUFFER);
     //Overwrite log file if present and create new then close
     scanfile.open("lifo.log.txt", std::ofstream::out | std::ofstream::trunc);
     if(!scanfile){
@@ -18,8 +17,13 @@ lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     std::cout << "\nFile created successfully." << endl;
 }
 
-//code here
-
+int lifo::next_read_index(){
+    for(int i = 0; i < read_buffer.size(); ++i){
+        int next_track = read_buffer.front();
+        //queue.dequeue();
+        current_track=next_track;
+    }
+}
 
 /*
 Check if the request queue has anything to read.
