@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "data_struct.h"
 
 class n_step_scan{
@@ -22,6 +23,7 @@ public:
     void read();
     void add(int);
     bool full();
+    void reset(std::string, int);
 private:
     void determine_write_length();
     int next_read_index();

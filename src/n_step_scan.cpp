@@ -1,5 +1,6 @@
 #include "n_step_scan.h"
 #include <cstdlib>
+#include <string>
 
 n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track, 
     int SMALL_BUFFER, direction set_direction){
@@ -216,4 +217,10 @@ void n_step_scan::read(){
 
 void n_step_scan::add(int track){
     read_buffer.push_back(track);
+}
+
+void n_step_scan::reset(std::string test_sim, int new_track){
+    current_direction = IDLE;
+    num_tracks_traversed = 0;
+    num_tracks_requested = 0;
 }

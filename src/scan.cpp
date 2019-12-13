@@ -252,3 +252,14 @@ avg_num_track = (float)num_tracks_traversed/num_tracks_requested;
 
 
 }
+
+void scan::reset(std::string test_sim, int new_track){
+    current_direction = IDLE;
+    current_track = new_track;
+    num_tracks_traversed = 0;  
+    num_tracks_requested= 0;
+    avg_num_track = 0;
+    scanfile.open("scan.log.txt", std::ios_base::app);
+    scanfile <<"#####################################\n" << test_sim << "\n" << std::endl;
+    scanfile.close();
+}

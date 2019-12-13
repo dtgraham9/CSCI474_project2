@@ -2,6 +2,7 @@
 #include <stack>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 class lifo{
 private:
@@ -22,6 +23,7 @@ public:
     void add(int);
     int space_left(); 
     void print_report();
+    void reset(std::string, int);
     
 private:  
     bool read_ready();

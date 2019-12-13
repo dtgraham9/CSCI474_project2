@@ -1,6 +1,7 @@
 #include "fscan.h"
 #include "data_struct.h"
 #include <cstdlib>
+#include <string>
 
 fscan::fscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_direction){
     this->MAX_TRACKS = MAX_TRACKS;
@@ -197,4 +198,11 @@ void fscan::read(){
 
 void fscan::add(int track){
     read_buffer.push_back(track);
+}
+
+void fscan::reset(std::string test_sim, int new_track){
+    current_track = new_track;
+    num_tracks_traversed = 0;
+    num_tracks_requested =0;
+    current_direction = IDLE;
 }
