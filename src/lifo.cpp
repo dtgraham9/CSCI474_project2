@@ -17,28 +17,6 @@ lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     std::cout << "\nFile created successfully." << endl;
 }
 
-int lifo::next_read_index(){
-    for(int i = 0; i < read_buffer.size(); ++i){
-        int next_track = read_buffer.front();
-        //queue.dequeue();
-        current_track=next_track;
-    }
-}
-
-/*
-Check if the request queue has anything to read.
-If it doesn't then the drive will be put into an IDLE state.
-*/
-bool lifo::read_ready(){
-    if(read_buffer.size() > 0){
-        return true;
-    }
-    else{
-        current_direction = IDLE;
-        return false; 
-    }
-}
-
 void lifo::read(){
     int read_index = 0;
     int requested_track = 0;
@@ -47,9 +25,10 @@ void lifo::read(){
         return;
     }
 
-    read_index = next_read_index();
-    requested_track = read_buffer[read_index];
+    requested_track = read_queue.front();
+    read_queue.pop();
     diff_tracks = abs(requested_track - current_track);
+    current_track = requested_track;
 
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
@@ -61,31 +40,31 @@ void lifo::read(){
     
     num_tracks_traversed += diff_tracks;
 
-    read_buffer.erase(read_buffer.begin() + read_index);
+    read_queue.pop();
 
     num_tracks_requested+=1;
     
 }
 
 void lifo::add(int track){
-    read_buffer.push_back(track);
+    read_queue.push(track);
 }
 
 void lifo::add_tracks(std::vector<int> & tracks){
     for (int i = 0; i < tracks.size(); ++i){
-        read_buffer.push_back(tracks[i]);
+        read_queue.push(tracks[i]);
     }
 }
 
 int lifo::space_left(){
-    return MAX_BUFFER - read_buffer.size();
+    return MAX_BUFFER - read_queue.size();
 }
 
 void lifo::print_report(){
 
 std::cout << std::setprecision(2) << std::fixed;
 
-avg_num_track = (float)num_tracks_traversed/num_tracks_requested;
+avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
