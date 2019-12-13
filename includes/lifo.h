@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
+#include <queue>
 #include <fstream>
 
 class lifo{
 private:
     std::vector<int> read_buffer;
+    std::queue<int> read_queue;
     int MAX_TRACKS;
     int MAX_BUFFER;
     int current_track;
@@ -13,6 +15,7 @@ private:
     std::ofstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
+    ofstream scanfile;
 
 public:
     lifo(int, int, int);

@@ -34,8 +34,7 @@ bool fifo::read_ready(){
         return true;
     }
     else{
-        current_direction = IDLE;
-        return false; 
+         return false; 
     }
 }
 
