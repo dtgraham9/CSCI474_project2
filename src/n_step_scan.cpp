@@ -1,4 +1,5 @@
 #include "n_step_scan.h"
+#include <cstdlib>
 
 n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track, 
     int SMALL_BUFFER, direction set_direction){
@@ -44,7 +45,7 @@ Assumptions: There is a track read request avialable in buffer
 
 Post: Will return the index of the next read in the buffer
 */
-int scan::next_read_index(){
+int n_step_scan::next_read_index(){
     int index = 0;
     switch(current_direction){
         case IDLE:
@@ -66,7 +67,7 @@ that is the closet to the current drive head position
 and also update the direction the drive head will be
 going in.
 */
-int scan::handle_IDLE(){
+int n_step_scan::handle_IDLE(){
     int diff_track = 0; //difference between current track and one in request queue
     int min_diff_track = MAX_TRACKS;
     int index_track = 0;
@@ -101,7 +102,7 @@ int scan::handle_IDLE(){
     return index_track;
 }
 
-int scan::handle_INC(){
+int n_step_scan::handle_INC(){
     int index = 0;
     int diff_track = 0;
     int min_diff_track = MAX_TRACKS;
@@ -145,7 +146,7 @@ int scan::handle_INC(){
     }
 }
 
-int scan::handle_DEC(){
+int n_step_scan::handle_DEC(){
     int index = 0;
     int diff_track = 0;
     int min_diff_track = MAX_TRACKS;

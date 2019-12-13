@@ -14,7 +14,7 @@ private:
     direction current_direction;
     int current_track;  
     int num_tracks_traversed;  
-    ofstream scanfile;
+    std::fstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
 
