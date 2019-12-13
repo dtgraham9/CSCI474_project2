@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <list>
 using namespace std;
 
 fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
@@ -9,8 +10,6 @@ fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     this->MAX_BUFFER = MAX_BUFFER;
     this->current_track = current_track;
     read_buffer.reserve(MAX_BUFFER);
-    total = 0;
-    element = 0;
     //Overwrite log file if present and create new then close
     scanfile.open("fifo.log.txt", std::ofstream::out | std::ofstream::trunc);
     if(!scanfile){
@@ -23,12 +22,8 @@ int fifo::next_read_index(){
     for(int i = 0; i < read_buffer.size(); ++i){
         int next_track = read_buffer.front();
         read_buffer.pop_front();
-        //seek.push_back(abs(current_track-next_track));
         current_track=next_track;
-        total += abs(current_track-next_track);
-        element++;
     }
-    cout << total/element << endl;
 }
 
 void fifo::read(){

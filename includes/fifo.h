@@ -7,8 +7,6 @@ private:
     int MAX_TRACKS;
     int MAX_BUFFER;
     int current_track;
-    int total;
-    int element;
     int num_tracks_traversed;
     std::ofstream scanfile;
     int num_tracks_requested;
