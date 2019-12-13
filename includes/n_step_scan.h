@@ -20,7 +20,8 @@ public:
     n_step_scan(int,int,int, int, direction);
     int space_left();
     void read();
-    void add();
+    void add(int);
+    bool full();
 private:
     void determine_write_length();
     int next_read_index();
