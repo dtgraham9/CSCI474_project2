@@ -50,12 +50,6 @@ void lifo::add(int track){
     read_stack.push(track);
 }
 
-void lifo::add_tracks(std::vector<int> & tracks){
-    for (int i = 0; i < tracks.size(); ++i){
-        read_stack.push(tracks[i]);
-    }
-}
-
 int lifo::space_left(){
     return MAX_BUFFER - read_stack.size();
 }
