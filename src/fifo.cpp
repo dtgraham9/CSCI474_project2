@@ -21,7 +21,7 @@ void fifo::read(){
     int read_index = 0;
     int requested_track = 0;
     int diff_tracks = 0;
-    if(!read_ready()){
+    if(!read_queue.empty()){
         return;
     }
 
