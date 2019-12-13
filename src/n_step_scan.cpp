@@ -16,7 +16,7 @@ bool n_step_scan::full(){
 }
 
 int n_step_scan::space_left(){
-    
+    return MAX_BUFFER - read_buffer.size(); 
 }
 
 void n_step_scan::determine_write_length(){
