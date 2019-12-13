@@ -11,7 +11,20 @@ private:
     int num_tracks_traversed;
     int SMALL_BUFFER;
     int small_buffer_size;
+    bool write_lock;
+    int actual_size;
+    int write_queue_size;
+    int num_tracks_requested;
+    direction current_direction;
 public:
     n_step_scan(int,int,int, int, direction);
     int space_left();
+    void read();
+private:
+    void determine_write_length();
+    int next_read_index();
+    int handle_INC();
+    int handle_DEC();
+    int handle_IDLE();
+    bool read_ready();
 };
