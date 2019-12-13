@@ -25,6 +25,20 @@ int fifo::next_read_index(){
     }
 }
 
+/*
+Check if the request queue has anything to read.
+If it doesn't then the drive will be put into an IDLE state.
+*/
+bool scan::read_ready(){
+    if(read_buffer.size() > 0){
+        return true;
+    }
+    else{
+        current_direction = IDLE;
+        return false; 
+    }
+}
+
 void fifo::read(){
     int read_index = 0;
     int requested_track = 0;
@@ -49,7 +63,7 @@ void fifo::read(){
 
     read_buffer.erase(read_buffer.begin() + read_index);
 
-    num_tracks_requested+=1;
+    num_tracks_requested += 1;
     
 }
 
@@ -71,7 +85,7 @@ void fifo::print_report(){
 
 std::cout << std::setprecision(2) << std::fixed;
 
-avg_num_track = num_tracks_traversed/num_tracks_requested;
+avg_num_track = (float)num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
