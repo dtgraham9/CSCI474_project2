@@ -214,6 +214,6 @@ void n_step_scan::read(){
     write_queue_size--;
 }
 
-void n_step_scan::add(int){
+void n_step_scan::add(int track){
     read_buffer.push_back(track);
 }
