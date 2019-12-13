@@ -29,7 +29,7 @@ int fifo::next_read_index(){
 Check if the request queue has anything to read.
 If it doesn't then the drive will be put into an IDLE state.
 */
-bool scan::read_ready(){
+bool fifo::read_ready(){
     if(read_buffer.size() > 0){
         return true;
     }

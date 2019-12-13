@@ -21,7 +21,19 @@ lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
 //code here
 
 
-
+/*
+Check if the request queue has anything to read.
+If it doesn't then the drive will be put into an IDLE state.
+*/
+bool lifo::read_ready(){
+    if(read_buffer.size() > 0){
+        return true;
+    }
+    else{
+        current_direction = IDLE;
+        return false; 
+    }
+}
 
 void lifo::read(){
     int read_index = 0;
