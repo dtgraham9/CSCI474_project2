@@ -1,9 +1,12 @@
 #include "scan.h"
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
+using namespace std;
 /*
 Reserve the memory needed for the queue and set max disk tracks
 */
+ofstream scanfile;
 scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
     read_buffer.reserve(MAX_BUFFER);
     this->MAX_TRACKS = MAX_TRACKS;
@@ -12,6 +15,8 @@ scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
     current_direction = IDLE;
     num_tracks_traversed = 0;
     //Overwrite log file if present and create new then close
+    scanfile.open("scan.log.txt", std::ofstream::out | std::ofstream::trunc);
+    scanfile.close();
 }
 
 bool scan::full(){
@@ -32,7 +37,7 @@ bool scan::read_ready(){
     }
 }
 /*
-Assumptions: There is a track read request avialable in buffer
+Assumptions: There is a track read request available in buffer
 
 Post: Will return the index of the next read in the buffer
 */
@@ -196,6 +201,9 @@ void scan::read(){
     diff_tracks = abs(requested_track - current_track);
     
     //Reopen log file and write entry, then close
+    scanfile.open("scan.log.txt");
+    scanfile << "REquested Track: " << requested_track << "\n\tDifference of Tracks: " << diff_tracks;
+    scanfile.close();
     //Implement logging of track request and travel
 
     num_tracks_traversed += diff_tracks;

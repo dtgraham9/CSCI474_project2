@@ -3,7 +3,7 @@
 #include "data_struct.h"
 /*Implements the SCAN disk management method.
 SCAN will take a queue and move only in one direction until reaches edge.
-SCAN can recieve new requests while dealing with queue.  
+SCAN can receive new requests while dealing with queue.  
 */
 class scan{
 private:
