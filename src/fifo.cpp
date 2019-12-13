@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
 using namespace std;
 
 fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
