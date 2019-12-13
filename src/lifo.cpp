@@ -25,7 +25,7 @@ void lifo::read(){
         return;
     }
 
-    requested_track = read_stack.front();
+    requested_track = read_stack.top();
     read_stack.pop();
     diff_tracks = abs(requested_track - current_track);
     current_track = requested_track;
