@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <queue>
+#include <fstream>
 
 class fifo{
 private:
@@ -14,6 +15,7 @@ private:
     std::ofstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
+    ofstream scanfile;
 
 public:
     fifo(int, int, int);
