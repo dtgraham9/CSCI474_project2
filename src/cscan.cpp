@@ -106,7 +106,7 @@ int cscan::handle_DEC(){
     }
 }
 
-bool scan::read_ready(){
+bool cscan::read_ready(){
     if(read_buffer.size()>0){
         return true;
     }
@@ -115,7 +115,7 @@ bool scan::read_ready(){
     }
 }
 
-void scan::read(){
+void cscan::read(){
     int read_index = 0;
     int requested_track = 0;
     int diff_tracks = 0;
@@ -124,7 +124,7 @@ void scan::read(){
     }
 
     read_index = next_read_index();
-    request_track = read_buffer[read_index];
+    requested_track = read_buffer[read_index];
     diff_tracks = abs(requested_track - current_track);
 
     //Reopen log file and write entry, then close
@@ -136,16 +136,16 @@ void scan::read(){
     
 }
 
-void scan::add(int track){
+void cscan::add(int track){
     read_buffer.push_back(track);
 }
 
-void scan::add_tracks(std::vector<int> & tracks){
-    for (int i = 0; i < tracks.size(; ++i){
+void cscan::add_tracks(std::vector<int> & tracks){
+    for (int i = 0; i < tracks.size(); ++i){
         read_buffer.push_back(tracks[i]);
     }
 }
 
-int scan::space_left(){
+int cscan::space_left(){
     return MAX_BUFFER - read_buffer.size();
 }
