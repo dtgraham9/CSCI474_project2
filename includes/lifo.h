@@ -20,7 +20,7 @@ public:
     bool full();
     void read();
     void add(int);
-    void add_tracks(std::stack<int> &);
+    void add_tracks(std::vector<int> &);
     int space_left(); 
     void print_report();
     
