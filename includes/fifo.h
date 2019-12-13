@@ -24,7 +24,6 @@ public:
     int space_left(); 
     void print_report();
 
-private:
-    int next_read_index();    
+private: 
     bool read_ready();
 };
