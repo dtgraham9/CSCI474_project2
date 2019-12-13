@@ -25,8 +25,8 @@ void lifo::read(){
         return;
     }
 
-    requested_track = read_queue.front();
-    read_queue.pop();
+    requested_track = read_stack.front();
+    read_stack.pop();
     diff_tracks = abs(requested_track - current_track);
     current_track = requested_track;
 
@@ -40,24 +40,24 @@ void lifo::read(){
     
     num_tracks_traversed += diff_tracks;
 
-    read_queue.pop();
+    read_stack.pop();
 
     num_tracks_requested+=1;
     
 }
 
 void lifo::add(int track){
-    read_queue.push(track);
+    read_stack.push(track);
 }
 
 void lifo::add_tracks(std::vector<int> & tracks){
     for (int i = 0; i < tracks.size(); ++i){
-        read_queue.push(tracks[i]);
+        read_stack.push(tracks[i]);
     }
 }
 
 int lifo::space_left(){
-    return MAX_BUFFER - read_queue.size();
+    return MAX_BUFFER - read_stack.size();
 }
 
 void lifo::print_report(){
