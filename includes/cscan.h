@@ -11,7 +11,7 @@ private:
     direction set_direction;
     int current_track;  
     int num_tracks_traversed;
-    ofstream scanfile;
+    ofstream cscanfile;
     int num_tracks_requested;
     int avg_num_track;
 
