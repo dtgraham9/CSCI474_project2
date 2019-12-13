@@ -1,8 +1,221 @@
 #include "fifo.h"
+#include <iostream>
+#include <fstream>
 
 fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     this->MAX_TRACKS = MAX_TRACKS;
     this->MAX_BUFFER = MAX_BUFFER;
     this->current_track = current_track;
     read_buffer.reserve(MAX_BUFFER);
+
+    //Overwrite log file if present and create new then close
+    ofstream file;
+}
+
+bool fifo::full(){
+    return read_buffer.size() == MAX_BUFFER;
+}
+
+/*
+Check if the request queue has anything to read.
+If it doesn't then the drive will be put into an IDLE state.
+*/
+bool fifo::read_ready(){
+    if(read_buffer.size() > 0){
+        return true;
+    }
+    else{
+        current_direction = IDLE;
+        return false; 
+    }
+}
+/*
+Assumptions: There is a track read request avialable in buffer
+
+Post: Will return the index of the next read in the buffer
+*/
+int fifo::next_read_index(){
+    int index = 0;
+    switch(current_direction){
+        case IDLE:
+            index = handle_IDLE();
+            break;
+        case INC:
+            index = handle_INC();
+            break;
+        case DEC:
+            index = handle_DEC();
+            break;
+    }
+    return index;
+}
+
+/*
+Return the index of the track in read_buffer
+that is the closet to the current drive head position
+and also update the direction the drive head will be
+going in.
+*/
+int fifo::handle_IDLE(){
+    int diff_track = 0; //difference between current track and one in request queue
+    int index_track = 0;
+    direction new_direction = IDLE;
+    for(int i = 0 ; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
+        /*Drive head is currently on requested track.
+        Return that track index.
+        */
+        if(diff_track == 0){
+            current_direction = IDLE;
+            return i;
+        }
+        //Going away from track 0
+        else if(diff_track < 0){
+            new_direction = INC;
+            index_track = i;
+        }
+        //Going towards track 0 
+        else if(diff_track > 0){
+            new_direction = DEC;
+            index_track = i;
+        }
+    }
+    current_direction = new_direction;
+    return index_track;
+}
+
+int fifo::handle_INC(){
+    int index = 0;
+    int diff_track = 0;
+    int index_track = 0;
+    //Track for the possibilty that the drive head may have to switch directions
+    int opposite_index_track = 0;
+    /*
+    If never changed to false, it means there were no more
+    track requests farther away in the increasing direction
+    */
+    bool reverse_direction = true;
+    direction new_direction = IDLE;
+    for(int i = 0; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
+
+        if(diff_track == 0){
+            current_direction = INC;
+            return i;
+        }
+        //Going away from track 0
+        else if(diff_track < 0){
+            reverse_direction = false;
+            index_track = i;
+        }
+        //Going towards track 0
+        else if(diff_track > 0){
+            opposite_index_track = i;
+        }
+    }
+    //Check to see if there is any track request in the same direction
+    if(reverse_direction){
+        current_direction = DEC; 
+        return opposite_index_track;
+    }
+    else{
+        current_direction = INC;
+        return index_track;
+    }
+}
+
+int fifo::handle_DEC(){
+    int index = 0;
+    int diff_track = 0;
+    int index_track = 0;
+    //Track for the possibilty that the drive head may have to switch directions
+    int opposite_index_track = 0;
+    /*
+    If never changed to false, it means there were no more
+    track requests farther away in the increasing direction
+    */
+    bool reverse_direction = true;
+    direction new_direction = IDLE;
+    for(int i = 0; i < read_buffer.size(); ++i){
+        diff_track = current_track - read_buffer[i];
+
+        if(diff_track == 0){
+            current_direction = INC;
+            return i;
+        }
+        //Going away from track 0
+        else if(diff_track < 0){
+            opposite_index_track = i;
+        }
+        //Going towards track 0
+        else if(diff_track > 0){
+            reverse_direction = false;
+            index_track = i;            
+        }
+    }
+    //Check to see if there is any track request in the same direction
+    if(reverse_direction){
+        current_direction = INC; 
+        return opposite_index_track;
+    }
+    else{
+        current_direction = DEC;
+        return index_track;
+    }
+}
+
+/*
+*/
+void fifo::read(){
+    int read_index = 0;
+    int requested_track = 0;
+    int diff_tracks = 0;
+    if(!read_ready()){
+        return;
+    }
+
+    read_index = next_read_index();
+    requested_track = read_buffer[read_index];
+    diff_tracks = abs(requested_track - current_track);
+    
+    //Reopen log file and write entry, then close
+    //Implement logging of track request and travel
+//-------------------------------
+    //open file in write mode
+    file.open("fifo.txt",ios::out);
+    if(!file){
+      cout<<"Error in creating file.."<<endl;
+      return 0;
+    }
+    cout<<"\nFile created successfully."<<endl;
+ 
+    //write into file
+    file.write("Requested Track: " << requested_track << "/nDifference of Tracks: " << diff_tracks);    //write into file
+ 
+    file.close();   //close the file
+    cout<<"\nFile saved and closed succesfully."<<endl;
+//---------------------------
+
+    num_tracks_traversed += diff_tracks;
+
+    read_buffer.erase(read_buffer.begin()+read_index);
+}
+
+/*
+Assumption: There is space available in buffer
+*/
+void fifo::add(int track){
+    read_buffer.push_back(track);
+}
+
+void fifo::add_tracks(std::vector<int> & tracks)
+{
+    for(int i = 0; i < tracks.size(); ++i){
+        read_buffer.push_back(tracks[i]);
+    }
+}
+
+int fifo::space_left(){
+    return MAX_BUFFER - read_buffer.size();
+
 }

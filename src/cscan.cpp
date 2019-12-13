@@ -1,6 +1,8 @@
 #include "cscan.h"
 #include <vector>
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
 
 cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_direction){
     this->MAX_BUFFER = MAX_BUFFER;
@@ -9,7 +11,9 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     this->set_direction = set_direction;
     this->current_track = current_track;
     num_tracks_traversed = 0;
+
     //Overwrite log file if present and create new then close
+    ofstream file;
 }
 
 int cscan::next_read_index(){
@@ -106,7 +110,7 @@ int cscan::handle_DEC(){
     }
 }
 
-bool scan::read_ready(){
+bool cscan::read_ready(){
     if(read_buffer.size()>0){
         return true;
     }
@@ -115,7 +119,7 @@ bool scan::read_ready(){
     }
 }
 
-void scan::read(){
+void cscan::read(){
     int read_index = 0;
     int requested_track = 0;
     int diff_tracks = 0;
@@ -129,6 +133,21 @@ void scan::read(){
 
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
+//-------------------------------
+    //open file in write mode
+    file.open("cscan.txt",ios::out);
+    if(!file){
+      cout<<"Error in creating file.."<<endl;
+      return 0;
+    }
+    cout<<"\nFile created successfully."<<endl;
+ 
+    //write into file
+    file.write("Requested Track: " << requested_track << "/nDifference of Tracks: " << diff_tracks);    //write into file
+ 
+    file.close();   //close the file
+    cout<<"\nFile saved and closed succesfully."<<endl;
+//---------------------------
 
     num_tracks_traversed += diff_tracks;
 
@@ -136,16 +155,16 @@ void scan::read(){
     
 }
 
-void scan::add(int track){
+void cscan::add(int track){
     read_buffer.push_back(track);
 }
 
-void scan::add_tracks(std::vector<int> & tracks){
+void cscan::add_tracks(std::vector<int> & tracks){
     for (int i = 0; i < tracks.size(; ++i){
         read_buffer.push_back(tracks[i]);
     }
 }
 
-int scan::space_left(){
+int cscan::space_left(){
     return MAX_BUFFER - read_buffer.size();
 }
