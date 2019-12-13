@@ -19,7 +19,6 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     scanfile.open("cscan.log.txt", std::ofstream::out | std::ofstream::trunc);
     if(!scanfile){
       std::cout<<"Error in creating file.."<<endl;
-      return 0;
     }
     scanfile.close();
     std::cout << "\nFile created successfully." << endl;
