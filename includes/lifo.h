@@ -1,11 +1,11 @@
 #pragma once
-#include <queue>
+#include <stack>
 #include <iostream>
 #include <fstream>
 
 class lifo{
 private:
-    std::queue<int> read_queue;
+    std::stack<int> read_stack;
     int MAX_TRACKS;
     int MAX_BUFFER;
     int current_track;
@@ -14,14 +14,13 @@ private:
     std::ofstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
-    ofstream scanfile;
-
+    
 public:
     lifo(int, int, int);
     bool full();
     void read();
     void add(int);
-    void add_tracks(std::vector<int> &);
+    void add_tracks(std::stack<int> &);
     int space_left(); 
     void print_report();
     
