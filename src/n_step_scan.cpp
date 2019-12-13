@@ -11,6 +11,10 @@ n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track,
     current_direction = set_direction;
 }
 
+bool n_step_scan::full(){
+    return read_buffer.size() == MAX_BUFFER;
+}
+
 int n_step_scan::space_left(){
     
 }
@@ -208,4 +212,8 @@ void n_step_scan::read(){
     read_buffer.erase(read_buffer.begin() + read_index);
     num_tracks_requested += 1;
     write_queue_size--;
+}
+
+void n_step_scan::add(int){
+    read_buffer.push_back(track);
 }
