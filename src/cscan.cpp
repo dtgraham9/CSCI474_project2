@@ -1,6 +1,10 @@
 #include "cscan.h"
 #include <vector>
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
 
 cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_direction){
     this->MAX_BUFFER = MAX_BUFFER;
@@ -8,8 +12,17 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     read_buffer.reserve(MAX_BUFFER);
     this->set_direction = set_direction;
     this->current_track = current_track;
+    num_tracks_requested = 0;
     num_tracks_traversed = 0;
+    avg_num_track = 0;
     //Overwrite log file if present and create new then close
+    scanfile.open("cscan.log.txt", std::ofstream::out | std::ofstream::trunc);
+    if(!scanfile){
+      std::cout<<"Error in creating file.."<<endl;
+      return 0;
+    }
+    scanfile.close();
+    std::cout << "\nFile created successfully." << endl;
 }
 
 int cscan::next_read_index(){
@@ -129,10 +142,17 @@ void cscan::read(){
 
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
-
+    
+    //write into file
+    scanfile.open("cscan.log.txt",std::ios_base::app);
+    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile.close();
+    
     num_tracks_traversed += diff_tracks;
 
     read_buffer.erase(read_buffer.begin() + read_index);
+
+    num_tracks_requested+=1;
     
 }
 
@@ -148,4 +168,19 @@ void cscan::add_tracks(std::vector<int> & tracks){
 
 int cscan::space_left(){
     return MAX_BUFFER - read_buffer.size();
+}
+
+void cscan::print_report(){
+
+std::cout << std::setprecision(2) << std::fixed;
+
+avg_num_track = num_tracks_traversed/num_tracks_requested;
+
+
+//write into file
+    scanfile.open("cscan.log.txt",std::ios_base::app);
+    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    scanfile.close();
+
+
 }
