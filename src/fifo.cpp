@@ -21,7 +21,7 @@ fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
 int fifo::next_read_index(){
     for(int i = 0; i < read_buffer.size(); ++i){
         int next_track = read_buffer.front();
-        read_buffer.pop_front();
+        //queue.dequeue();
         current_track=next_track;
     }
 }
