@@ -1,11 +1,9 @@
 #pragma once
-#include <vector>
 #include <queue>
 #include <fstream>
 
 class fifo{
 private:
-    std::vector<int> read_buffer;
     std::queue<int> read_queue;
     int MAX_TRACKS;
     int MAX_BUFFER;
@@ -26,7 +24,6 @@ public:
     int space_left(); 
     void print_report();
 
-private:
-    int next_read_index();    
+private: 
     bool read_ready();
 };
