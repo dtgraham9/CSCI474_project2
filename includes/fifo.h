@@ -1,5 +1,6 @@
 #pragma once
 #include <queue>
+#include <iostream>
 #include <fstream>
 
 class fifo{
