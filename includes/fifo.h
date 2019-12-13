@@ -24,5 +24,6 @@ public:
     void print_report();
 
 private:
-    int next_read_index();
+    int next_read_index();    
+    bool read_ready();
 };

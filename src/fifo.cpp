@@ -20,7 +20,7 @@ fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     std::cout << "\nFile created successfully." << endl;
 }
 int fifo::next_read_index(){
-    for(int i = 0; i < read_buffer.size; ++i){
+    for(int i = 0; i < read_buffer.size(); ++i){
         int next_track = read_buffer.front();
         read_buffer.pop_front();
         //seek.push_back(abs(current_track-next_track));
