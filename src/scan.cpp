@@ -1,6 +1,9 @@
 #include "scan.h"
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
 /*
 Reserve the memory needed for the queue and set max disk tracks
 */
@@ -12,6 +15,12 @@ scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
     current_direction = IDLE;
     num_tracks_traversed = 0;
     //Overwrite log file if present and create new then close
+    scanfile.open("scan.log.txt", std::ofstream::out | std::ofstream::trunc);
+    if(!scanfile){
+      std::cout<<"Error in creating file.."<<endl;
+    }
+    scanfile.close();
+    std::cout << "\nFile created successfully." << endl;
 }
 
 bool scan::full(){
@@ -198,9 +207,16 @@ void scan::read(){
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
 
+    //write into file
+    scanfile.open("scan.log.txt",std::ios_base::app);
+    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile.close();
+
     num_tracks_traversed += diff_tracks;
 
     read_buffer.erase(read_buffer.begin()+read_index);
+
+    num_tracks_requested+=1;
 }
 
 /*
@@ -219,5 +235,20 @@ void scan::add_tracks(std::vector<int> & tracks)
 
 int scan::space_left(){
     return MAX_BUFFER - read_buffer.size();
+
+}
+
+void scan::print_report(){
+
+std::cout << std::setprecision(2) << std::fixed;
+
+avg_num_track = num_tracks_traversed/num_tracks_requested;
+
+
+//write into file
+    scanfile.open("scan.log.txt",std::ios_base::app);
+    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    scanfile.close();
+
 
 }
