@@ -16,11 +16,11 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     num_tracks_traversed = 0;
     avg_num_track = 0;
     //Overwrite log file if present and create new then close
-    scanfile.open("cscan.log.txt", std::ofstream::out | std::ofstream::trunc);
-    if(!scanfile){
+    cscanfile.open("cscan.log.txt", std::ofstream::out | std::ofstream::trunc);
+    if(!cscanfile){
       std::cout<<"Error in creating file.."<<endl;
     }
-    scanfile.close();
+    cscanfile.close();
     std::cout << "\nFile created successfully." << endl;
 }
 
@@ -143,9 +143,9 @@ void cscan::read(){
     //Implement logging of track request and travel
     
     //write into file
-    scanfile.open("cscan.log.txt",std::ios_base::app);
-    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
-    scanfile.close();
+    cscanfile.open("cscan.log.txt",std::ios_base::app);
+    cscanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    cscanfile.close();
     
     num_tracks_traversed += diff_tracks;
 
@@ -177,9 +177,9 @@ avg_num_track = num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
-    scanfile.open("cscan.log.txt",std::ios_base::app);
-    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
-    scanfile.close();
+    cscanfile.open("cscan.log.txt",std::ios_base::app);
+    cscanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    cscanfile.close();
 
 
 }

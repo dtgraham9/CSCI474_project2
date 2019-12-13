@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "data_struct.h"
+#include <fstream>
 /*Implements the SCAN disk management method.
 SCAN will take a queue and move only in one direction until reaches edge.
 SCAN can recieve new requests while dealing with queue.  
@@ -13,6 +14,9 @@ private:
     direction current_direction;
     int current_track;  
     int num_tracks_traversed;  
+    ofstream scanfile;
+    int num_tracks_requested;
+    int avg_num_track;
 
 public:
     scan(int, int, int);
@@ -21,6 +25,7 @@ public:
     void add_tracks(std::vector<int> &);
     int space_left();
     void read();
+    void print_report();
 
 private:
     int next_read_index();
