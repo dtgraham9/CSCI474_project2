@@ -2,6 +2,7 @@
 #include <vector>
 #include "data_struct.h"
 #include <fstream>
+#include <string>
 /*Implements the SCAN disk management method.
 SCAN will take a queue and move only in one direction until reaches edge.
 SCAN can recieve new requests while dealing with queue.  
@@ -26,6 +27,7 @@ public:
     int space_left();
     void read();
     void print_report();
+    void reset(std::string, int);
 
 private:
     int next_read_index();

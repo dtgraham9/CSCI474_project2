@@ -2,6 +2,7 @@
 #include <vector>
 #include "data_struct.h"
 #include <fstream>
+#include <string>
 
 class cscan{
 private:
@@ -23,6 +24,7 @@ public:
     void add_tracks(std::vector<int> &);
     int space_left(); 
     void print_report();
+    void reset(std::string, int);
 
 
 private:

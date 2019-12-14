@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <string>
 using namespace std;
 
 lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
@@ -15,6 +16,9 @@ lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     }
     scanfile.close();
     std::cout << "\nFile created successfully." << endl;
+    num_tracks_traversed = 0;
+    num_tracks_requested = 0;
+    avg_num_track = 0;
 }
 
 void lifo::read(){
@@ -67,4 +71,14 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile.close();
 
 
+}
+
+void lifo::reset(std::string test_sim, int new_track){
+    scanfile.open("lifo.log.txt", std::ios_base::app);
+    scanfile<<"##############################\n" << test_sim << "\n" << std::endl;
+    scanfile.close();
+    num_tracks_traversed = 0;
+    num_tracks_requested = 0;
+    avg_num_track = 0;
+    current_track = new_track;
 }

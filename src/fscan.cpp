@@ -1,10 +1,14 @@
 #include "fscan.h"
 #include "data_struct.h"
 #include <cstdlib>
+<<<<<<< HEAD
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 using namespace std;
+=======
+#include <string>
+>>>>>>> 3edf2b49f131117129e9bbbf8e1c310800725485
 
 fscan::fscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_direction){
     this->MAX_TRACKS = MAX_TRACKS;
@@ -217,6 +221,7 @@ void fscan::add(int track){
     read_buffer.push_back(track);
 }
 
+<<<<<<< HEAD
 void fscan::print_report(){
 
 std::cout << std::setprecision(2) << std::fixed;
@@ -230,4 +235,11 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile.close();
 
 
+=======
+void fscan::reset(std::string test_sim, int new_track){
+    current_track = new_track;
+    num_tracks_traversed = 0;
+    num_tracks_requested =0;
+    current_direction = IDLE;
+>>>>>>> 3edf2b49f131117129e9bbbf8e1c310800725485
 }

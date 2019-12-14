@@ -1,9 +1,13 @@
 #pragma once
 #include <vector>
 #include "data_struct.h"
+<<<<<<< HEAD
 #include <iostream>
 #include <fstream>
 
+=======
+#include <string>
+>>>>>>> 3edf2b49f131117129e9bbbf8e1c310800725485
 class fscan{
 private:
     std::vector<int> read_buffer;
@@ -21,6 +25,7 @@ public:
     fscan(int, int, int, direction);
     void read();
     void add(int);
+    void reset(std::string, int);
 
 private:
     int handle_DEC();
