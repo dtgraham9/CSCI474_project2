@@ -1,6 +1,10 @@
 #include "fscan.h"
 #include "data_struct.h"
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
 
 fscan::fscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_direction){
     this->MAX_TRACKS = MAX_TRACKS;
@@ -9,6 +13,13 @@ fscan::fscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     read_buffer.reserve(MAX_BUFFER);
     num_tracks_traversed =0;
     num_tracks_requested = 0;
+    //Overwrite log file if present and create new then close
+    scanfile.open("fscan.log.txt", std::ofstream::out | std::ofstream::trunc);
+    if(!scanfile){
+      std::cout<<"Error in creating file.."<<endl;
+    }
+    scanfile.close();
+    std::cout << "\nFile created successfully." << endl;
 }
 
 bool fscan::read_ready(){
@@ -188,6 +199,13 @@ void fscan::read(){
     diff_tracks = abs(requested_track - current_track);
 
     //logging
+    //Reopen log file and write entry, then close
+    //Implement logging of track request and travel
+    
+    //write into file
+    scanfile.open("fscan.log.txt",std::ios_base::app);
+    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile.close();
 
     num_tracks_traversed += diff_tracks;
     read_buffer.erase(read_buffer.begin() + read_index);
@@ -197,4 +215,19 @@ void fscan::read(){
 
 void fscan::add(int track){
     read_buffer.push_back(track);
+}
+
+void fscan::print_report(){
+
+std::cout << std::setprecision(2) << std::fixed;
+
+avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
+
+
+//write into file
+    scanfile.open("fscan.log.txt",std::ios_base::app);
+    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    scanfile.close();
+
+
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "data_struct.h"
+#include <iostream>
+#include <fstream>
 
 class fscan{
 private:
@@ -12,6 +14,9 @@ private:
     direction current_direction;
     int num_tracks_traversed;
     int num_tracks_requested;
+    std::ofstream scanfile;
+    int avg_num_track;
+    
 public:
     fscan(int, int, int, direction);
     void read();
@@ -23,4 +28,5 @@ private:
     int handle_IDLE();
     int next_read_index();
     bool read_ready();
+    void print_report();
 };
