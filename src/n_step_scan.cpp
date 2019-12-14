@@ -1,13 +1,10 @@
 #include "n_step_scan.h"
 #include <cstdlib>
-<<<<<<< HEAD
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 using namespace std;
-=======
 #include <string>
->>>>>>> 3edf2b49f131117129e9bbbf8e1c310800725485
 
 n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track, 
     int SMALL_BUFFER, direction set_direction){
@@ -227,7 +224,7 @@ void n_step_scan::read(){
     
     //write into file
     scanfile.open("nstep.log.txt",std::ios_base::app);
-    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile<< requested_track << "\t" << diff_tracks;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
@@ -240,7 +237,6 @@ void n_step_scan::add(int track){
     read_buffer.push_back(track);
 }
 
-<<<<<<< HEAD
 void n_step_scan::print_report(){
 
 std::cout << std::setprecision(2) << std::fixed;
@@ -253,11 +249,13 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
     scanfile.close();
 
+}
 
-=======
 void n_step_scan::reset(std::string test_sim, int new_track){
-    current_direction = IDLE;
+    current_direction = IDLE;    
+    scanfile.open("nstep.log.txt", std::ios_base::app);
+    scanfile <<"\n#####################################\nNext Track Accessed: \tNumber of Tracks Traversed: " << test_sim << "\n" << std::endl;
+    scanfile.close();
     num_tracks_traversed = 0;
     num_tracks_requested = 0;
->>>>>>> 3edf2b49f131117129e9bbbf8e1c310800725485
 }

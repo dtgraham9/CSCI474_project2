@@ -16,6 +16,7 @@ private:
 public:
     sstf(int, int, int);
     void read();
+    void reset(std::string, int);
 private:
     void print_report();
 };

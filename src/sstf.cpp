@@ -39,7 +39,7 @@ void sstf::read(){
     
     //write into file
     scanfile.open("sstf.log.txt",std::ios_base::app);
-    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile<< requested_track << "\t" << diff_tracks;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
@@ -61,4 +61,13 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile.close();
 
 
+}
+
+void sstf::reset(std::string test_sim, int new_track){
+    current_direction = IDLE;    
+    scanfile.open("sstf.log.txt", std::ios_base::app);
+    scanfile <<"\n#####################################\nNext Track Accessed: \tNumber of Tracks Traversed: " << test_sim << "\n" << std::endl;
+    scanfile.close();
+    num_tracks_traversed = 0;
+    num_tracks_requested = 0;
 }
