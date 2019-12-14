@@ -2,21 +2,34 @@
 #include <cstdlib> 
 #include <iostream>
 #include <time.h>
+#include <map>
+#include <random>
+#include <cmath>
+#include <iomanip>
 
-int rand_gen(int prev_track, int edge, int max_tracks){
-    int weight = 100000;
-    std::vector<int> weight_rand;
-    weight_rand.reserve(max_tracks);
-    weight_rand[prev_track] = weight *.1;
-    for(int i = 0; i < prev_track; ++i){
-
+int rand_gen(int prev_track, int max_tracks){
+    double left_interval = (double)(max_tracks-prev_track)/(max_tracks*2);
+    double right_interval = (double)prev_track/(max_tracks*2); 
+    std::random_device rd{};
+    std::mt19937 gen{rd()};
+    std::vector<double> i{0.0, (double)prev_track, (double)max_tracks};
+    std::vector<double> w{left_interval, 1, right_interval}; 
+    std::piecewise_linear_distribution<> d(i.begin(), i.end(), w.begin());
+ 
+    // std::map<int, int> hist;
+    // for(int n=0; n<5000; ++n) {
+    //     //std::cout << (int)d(gen) << std::endl; 
+    //     ++hist[d(gen)];
+    // }
+    // for(auto p : hist) {
+    //     std::cout << std::setw(2) << std::setfill('0') << p.first << ' '
+    //         << std::string(p.second,'*') << '\n';
+    // }
+    int random_wgt = (int) d(gen);
+    if(0 <=random_wgt && random_wgt < max_tracks){
+        return random_wgt;
     }
-
-    for(int i = prev_track+1; i<max_tracks; ++i){
-
-    }
-
-    return 0;
+    throw "Random generator not working";
 }
 
 
@@ -28,6 +41,8 @@ int main(int argc, char *argv[]){
     for(int i = 0; i < num_reads; ++i){
         track_queue.push_back(rand() % max_tracks);
     }
+
+    rand_gen(2, 200);
 
     std::vector<int> track_queue_wgt;
     track_queue_wgt.push_back(rand() % max_tracks);
@@ -47,13 +62,7 @@ int main(int argc, char *argv[]){
             }
         }
         else{
-            if(rand() % 1 == 0){
-                track_queue_wgt.push_back(rand_gen(track_queue_wgt.back(), 0, max_tracks));
-            }
-            else{
-                track_queue_wgt.push_back(rand_gen(track_queue_wgt.back(), max_tracks, max_tracks-1));
-            }
+            track_queue_wgt.push_back(rand_gen(track_queue_wgt.back(),max_tracks));
         }
-
     }
 }
