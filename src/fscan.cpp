@@ -234,7 +234,6 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
     scanfile.close();
 
-
 =======
 void fscan::reset(std::string test_sim, int new_track){
     current_track = new_track;
