@@ -21,6 +21,7 @@ n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track,
     }
     scanfile.close();
     std::cout << "\nFile created successfully." << endl;
+    this->SMALL_BUFFER = SMALL_BUFFER;
 }
 
 bool n_step_scan::full(){
@@ -32,12 +33,14 @@ int n_step_scan::space_left(){
 }
 
 void n_step_scan::determine_write_length(){
-    if(read_buffer.size() < SMALL_BUFFER && read_buffer.size() != 0){
+    if(read_buffer.size() <= SMALL_BUFFER && read_buffer.size() != 0){
         write_queue_size = read_buffer.size();
+        return;
     }
     
     else if(read_buffer.size()-SMALL_BUFFER < SMALL_BUFFER){
         write_queue_size =  read_buffer.size();
+        return;
     }
     write_queue_size = SMALL_BUFFER;
 }
@@ -217,18 +220,19 @@ void n_step_scan::read(){
     read_index = next_read_index();
     requested_track = read_buffer[read_index];
     diff_tracks = abs(requested_track - current_track);
-
+    current_track = requested_track;
     //logging
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
     
     //write into file
     scanfile.open("nstep.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile<< requested_track << "\t\t\t" << diff_tracks <<std::endl;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
     read_buffer.erase(read_buffer.begin() + read_index);
+    
     num_tracks_requested += 1;
     write_queue_size--;
 }
@@ -269,4 +273,5 @@ void n_step_scan::reset(std::string test_sim, int new_track){
     scanfile.close();
     num_tracks_traversed = 0;
     num_tracks_requested = 0;
+    write_queue_size = 0;
 }

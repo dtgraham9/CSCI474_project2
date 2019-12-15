@@ -207,13 +207,13 @@ void scan::read(){
     read_index = next_read_index();
     requested_track = read_buffer[read_index];
     diff_tracks = abs(requested_track - current_track);
-    
+    current_track = requested_track;
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
 
     //write into file
     scanfile.open("scan.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile<< requested_track << "\t\t\t" << diff_tracks << std::endl;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
