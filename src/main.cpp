@@ -41,8 +41,7 @@ int rand_gen(int prev_track, int max_tracks){
     throw "Random generator not working";
 }
 
-void fifo_sim(int max_buffer, int max_tracks, std::vector<int> & fifo_rand, std::string test_name, int start_track, int add_size){
-    fifo fifo_sch(max_tracks, max_buffer, start_track);
+void fifo_sim(fifo & fifo_sch, std::vector<int> & fifo_rand, std::string test_name, int start_track, int add_size){
     fifo_sch.reset(test_name, start_track);
     for(int i = 0; i < fifo_rand.size(); ){
         for(int j = i; j < i+add_size; ++j){
@@ -103,38 +102,39 @@ int main(int argc, char *argv[]){
     //FIFO Tests
     // reads in fifo_read_size entries from the track_queue:
     // Track 0 tests
-    fifo_sim(max_buffer, max_tracks, track_queue1, "FIFO Random Test 1 @ 0", 0, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue2, "FIFO Random Test 2 @ 0", 0, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue3, "FIFO Random Test 3 @ 0", 0, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue4, "FIFO Random Test 4 @ 0", 0, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue5, "FIFO Random Test 5 @ 0", 0, fifo_read_size);
+    fifo fifo_sch(max_tracks, max_buffer, start_track);
+    fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 0", 0, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue2, "FIFO Random Test 2 @ 0", 0, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue3, "FIFO Random Test 3 @ 0", 0, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue4, "FIFO Random Test 4 @ 0", 0, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue5, "FIFO Random Test 5 @ 0", 0, fifo_read_size);
     // Track 100 tests
-    fifo_sim(max_buffer, max_tracks, track_queue1, "FIFO Random Test 1 @ 100", 100, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue2, "FIFO Random Test 2 @ 100", 100, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue3, "FIFO Random Test 3 @ 100", 100, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue4, "FIFO Random Test 4 @ 100", 100, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue5, "FIFO Random Test 5 @ 100", 100, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue1, "FIFO Random Test 1 @ 100", 100, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue2, "FIFO Random Test 2 @ 100", 100, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue3, "FIFO Random Test 3 @ 100", 100, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue4, "FIFO Random Test 4 @ 100", 100, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue5, "FIFO Random Test 5 @ 100", 100, fifo_read_size);
     // Track 199 tests
-    fifo_sim(max_buffer, max_tracks, track_queue1, "FIFO Random Test 1 @ 199", 199, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue2, "FIFO Random Test 2 @ 199", 199, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue3, "FIFO Random Test 3 @ 199", 199, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue4, "FIFO Random Test 4 @ 199", 199, fifo_read_size);
-    fifo_sim(max_buffer, max_tracks, track_queue5, "FIFO Random Test 5 @ 199", 199, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue1, "FIFO Random Test 1 @ 199", 199, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue2, "FIFO Random Test 2 @ 199", 199, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue3, "FIFO Random Test 3 @ 199", 199, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue4, "FIFO Random Test 4 @ 199", 199, fifo_read_size);
+    fifo_sim(fifo_sch,  track_queue5, "FIFO Random Test 5 @ 199", 199, fifo_read_size);
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
     
-    lifo lifo_sch(max_tracks, max_buffer, start_track);
-    lifo_sch.reset("Random Test", start_track);
-    for(int i = 0; i < track_queue.size(); ){
-        for(int j = i; j < i+lifo_read_size; ++j){
-            if(lifo_sch.full()){
-                i = j;
-                break;
-            }
-            lifo_sch.add(track_queue[j]);
-        }
-        lifo_sch.read();
-    }
-    lifo_sch.print_report();
+    // lifo lifo_sch(max_tracks, max_buffer, start_track);
+    // lifo_sch.reset("Random Test", start_track);
+    // for(int i = 0; i < track_queue.size(); ){
+    //     for(int j = i; j < i+lifo_read_size; ++j){
+    //         if(lifo_sch.full()){
+    //             i = j;
+    //             break;
+    //         }
+    //         lifo_sch.add(track_queue[j]);
+    //     }
+    //     lifo_sch.read();
+    // }
+    // lifo_sch.print_report();
     
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments sstf_good_reads
     /*
