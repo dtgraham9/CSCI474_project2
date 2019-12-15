@@ -13,7 +13,7 @@
 #include "cscan.h"
 #include "n_step_scan.h"
 #include "fscan.h"
-
+#include "data_struct.h"
 
 
 int rand_gen(int prev_track, int max_tracks){
@@ -121,7 +121,7 @@ void n_step_sim(n_step_scan & n_step_sch, std::vector<int> & n_step_rand, std::s
     std::cout << test_name << "\n" << report << std::endl;
 }
 
-void cscan_sim(cscan & cscan_sch, std::vector<int> & cscan_rand, std::string test_name, int start_track, int add_size){
+void cscan_sim(cscan & cscan_sch, std::vector<int> & cscan_rand, std::string test_name, int start_track, int add_size, direction new_direction){
     cscan_sch.reset(test_name, start_track);
     for(int i = 0; i < cscan_rand.size(); ){
         for(int j = i; j < i+add_size; ++j){
@@ -154,7 +154,7 @@ void fscan_sim(fscan & fscan_sch, std::vector<int> & fscan_rand, std::string tes
 }
 
 int main(int argc, char *argv[]){
-    int num_reads =1000, max_tracks=200, rand_tracks = 1000, max_buffer = 50;
+    int num_reads =1000, max_tracks=200, rand_tracks = 1000, max_buffer = 50, small_buffer =5;
     //vars to keep track of number of successful reads for each scheduler
     int fifo_good_reads = 0, lifo_good_reads = 0, sstf_good_reads = 0, scan_good_reads = 0, n_step_good_reads = 0, cscan_good_reads = 0, fscan_good_reads = 0;
     //vars to set number of requests per scheduler
@@ -279,24 +279,40 @@ int main(int argc, char *argv[]){
     // Track 0 tests
     fifo fifo_sch(max_tracks, max_buffer, start_track);
     fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 0", 0, add_size);
-    fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 0", 0, add_size);
-    fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 0", 0, add_size);
-    fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 0", 0, add_size);
-    fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 0", 0, add_size);
-    // Track 100 tests
-    fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 100", 100, add_size);
-    fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 100", 100, add_size);
-    fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 100", 100, add_size);
-    fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 100", 100, add_size);
-    fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 100", 100, add_size);
-    // Track 199 tests
-    fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 199", 199, add_size);
-    fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 199", 199, add_size);
-    fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 199", 199, add_size);
-    fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 199", 199, add_size);
-    fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 199", 199, add_size);
+    // fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 0", 0, add_size);
+    // fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 0", 0, add_size);
+    // fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 0", 0, add_size);
+    // fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 0", 0, add_size);
+    // // Track 100 tests
+    // fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 100", 100, add_size);
+    // fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 100", 100, add_size);
+    // fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 100", 100, add_size);
+    // fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 100", 100, add_size);
+    // fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 100", 100, add_size);
+    // // Track 199 tests
+    // fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 199", 199, add_size);
+    // fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 199", 199, add_size);
+    // fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 199", 199, add_size);
+    // fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 199", 199, add_size);
+    // fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 199", 199, add_size);
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
+    lifo lifo_sch(max_tracks, max_buffer, start_track);
+    lifo_sim(lifo_sch, track_queue1, "LIFO Random Test 1 @ 0", 0, add_size);
+
+    sstf sstf_sch(max_tracks, max_buffer, start_track);
+    sstf_sim(sstf_sch, track_queue1, "SSTF Random Test 1 @ 0", 0, add_size);
+
+    scan scan_sch(max_tracks, max_buffer, start_track);
+    scan_sim(scan_sch, track_queue1, "SCAN RANDOM TEST 1 @ 0", 0, add_size);
     
+    cscan cscan_sch(max_tracks, max_buffer, start_track, INC);
+    cscan_sim(cscan_sch, track_queue1, "CSCAN RANDOM TEST 1 @ 0",0, add_size, IDLE);
+
+    n_step_scan n_step_sch(max_tracks, max_buffer, start_track, small_buffer, IDLE);
+    n_step_sim(n_step_sch, track_queue1, "N STEP SCAN RANDOM TEST 1 @ 0",0 ,add_size);
+
+    fscan fscan_sch(max_tracks, max_buffer, start_track, IDLE);
+    fscan_sim(fscan_sch, track_queue1, "FSCAN RANDOM TEST 1 @ 0",0, add_size);
     // lifo lifo_sch(max_tracks, max_buffer, start_track);
     // lifo_sch.reset("Random Test", start_track);
     // for(int i = 0; i < track_queue.size(); ){
