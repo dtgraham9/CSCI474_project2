@@ -57,6 +57,101 @@ void fifo_sim(fifo & fifo_sch, std::vector<int> & fifo_rand, std::string test_na
     std::cout << test_name << "\n" << report << std::endl;
 }
 
+void lifo_sim(lifo & lifo_sch, std::vector<int> & lifo_rand, std::string test_name, int start_track, int add_size){
+    lifo_sch.reset(test_name, start_track);
+    for(int i = 0; i < lifo_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(lifo_sch.full()){
+                i = j;
+                break;
+            }
+            lifo_sch.add(lifo_rand[j]);
+        }
+        lifo_sch.read();
+    }
+    std::string report = lifo_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
+}
+
+void sstf_sim(sstf & sstf_sch, std::vector<int> & sstf_rand, std::string test_name, int start_track, int add_size){
+    sstf_sch.reset(test_name, start_track);
+    for(int i = 0; i < sstf_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(sstf_sch.full()){
+                i = j;
+                break;
+            }
+            sstf_sch.add(sstf_rand[j]);
+        }
+        sstf_sch.read();
+    }
+    std::string report = sstf_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
+}
+
+void scan_sim(scan & scan_sch, std::vector<int> & scan_rand, std::string test_name, int start_track, int add_size){
+    scan_sch.reset(test_name, start_track);
+    for(int i = 0; i < scan_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(scan_sch.full()){
+                i = j;
+                break;
+            }
+            scan_sch.add(scan_rand[j]);
+        }
+        scan_sch.read();
+    }
+    std::string report = scan_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
+}
+
+void n_step_sim(n_step_scan & n_step_sch, std::vector<int> & n_step_rand, std::string test_name, int start_track, int add_size){
+    n_step_sch.reset(test_name, start_track);
+    for(int i = 0; i < n_step_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(n_step_sch.full()){
+                i = j;
+                break;
+            }
+            n_step_sch.add(n_step_rand[j]);
+        }
+        n_step_sch.read();
+    }
+    std::string report = n_step_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
+}
+
+void cscan_sim(cscan & cscan_sch, std::vector<int> & cscan_rand, std::string test_name, int start_track, int add_size){
+    cscan_sch.reset(test_name, start_track);
+    for(int i = 0; i < cscan_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(cscan_sch.full()){
+                i = j;
+                break;
+            }
+            cscan_sch.add(cscan_rand[j]);
+        }
+        cscan_sch.read();
+    }
+    std::string report = cscan_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
+}
+
+void fscan_sim(fscan & fscan_sch, std::vector<int> & fscan_rand, std::string test_name, int start_track, int add_size){
+    fscan_sch.reset(test_name, start_track);
+    for(int i = 0; i < fscan_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(fscan_sch.full()){
+                i = j;
+                break;
+            }
+            fscan_sch.add(fscan_rand[j]);
+        }
+        fscan_sch.read();
+    }
+    std::string report = fscan_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
+}
 
 int main(int argc, char *argv[]){
     int num_reads =1000, max_tracks=200, rand_tracks = 1000, max_buffer = 50;
@@ -78,25 +173,105 @@ int main(int argc, char *argv[]){
         track_queue5.push_back(rand() % max_tracks);
     }
 
-    std::vector<int> track_queue_wgt;
-    track_queue_wgt.push_back(rand() % max_tracks);
+    std::vector<int> track_queue_wgt1;
+    std::vector<int> track_queue_wgt2;
+    std::vector<int> track_queue_wgt3;
+    std::vector<int> track_queue_wgt4;
+    std::vector<int> track_queue_wgt5;
+    track_queue_wgt1.push_back(rand() % max_tracks);
     int hold_rand = 0;
     for(int i = 1; i < rand_tracks; ++i){
         hold_rand = (rand() % 100) +1; 
         if(hold_rand <= 10 && hold_rand >= 1){
-            track_queue_wgt.push_back(track_queue_wgt.back());
+            track_queue_wgt1.push_back(track_queue_wgt1.back());
             continue;
         }
         else if(hold_rand == 100){
             if((rand()% 1) == 0){
-                track_queue_wgt.push_back(0);
+                track_queue_wgt1.push_back(0);
             }
             else{
-                track_queue_wgt.push_back(max_tracks-1);
+                track_queue_wgt1.push_back(max_tracks-1);
             }
         }
         else{
-            track_queue_wgt.push_back(rand_gen(track_queue_wgt.back(),max_tracks));
+            track_queue_wgt1.push_back(rand_gen(track_queue_wgt1.back(),max_tracks));
+        }
+    }
+    track_queue_wgt2.push_back(rand() % max_tracks);
+    for(int i = 1; i < rand_tracks; ++i){
+        hold_rand = (rand() % 100) +1; 
+        if(hold_rand <= 10 && hold_rand >= 1){
+            track_queue_wgt2.push_back(track_queue_wgt2.back());
+            continue;
+        }
+        else if(hold_rand == 100){
+            if((rand()% 1) == 0){
+                track_queue_wgt2.push_back(0);
+            }
+            else{
+                track_queue_wgt2.push_back(max_tracks-1);
+            }
+        }
+        else{
+            track_queue_wgt2.push_back(rand_gen(track_queue_wgt2.back(),max_tracks));
+        }
+    }
+    track_queue_wgt3.push_back(rand() % max_tracks);
+    for(int i = 1; i < rand_tracks; ++i){
+        hold_rand = (rand() % 100) +1; 
+        if(hold_rand <= 10 && hold_rand >= 1){
+            track_queue_wgt1.push_back(track_queue_wgt.back());
+            continue;
+        }
+        else if(hold_rand == 100){
+            if((rand()% 1) == 0){
+                track_queue_wgt1.push_back(0);
+            }
+            else{
+                track_queue_wgt1.push_back(max_tracks-1);
+            }
+        }
+        else{
+            track_queue_wgt1.push_back(rand_gen(track_queue_wgt1.back(),max_tracks));
+        }
+    }
+    track_queue_wgt4.push_back(rand() % max_tracks);
+    for(int i = 1; i < rand_tracks; ++i){
+        hold_rand = (rand() % 100) +1; 
+        if(hold_rand <= 10 && hold_rand >= 1){
+            track_queue_wgt4.push_back(track_queue_wgt4.back());
+            continue;
+        }
+        else if(hold_rand == 100){
+            if((rand()% 1) == 0){
+                track_queue_wgt4.push_back(0);
+            }
+            else{
+                track_queue_wgt4.push_back(max_tracks-1);
+            }
+        }
+        else{
+            track_queue_wgt4.push_back(rand_gen(track_queue_wgt4.back(),max_tracks));
+        }
+    }
+    track_queue_wgt5.push_back(rand() % max_tracks);
+    for(int i = 1; i < rand_tracks; ++i){
+        hold_rand = (rand() % 100) +1; 
+        if(hold_rand <= 10 && hold_rand >= 1){
+            track_queue_wgt5.push_back(track_queue_wgt5.back());
+            continue;
+        }
+        else if(hold_rand == 100){
+            if((rand()% 1) == 0){
+                track_queue_wgt5.push_back(0);
+            }
+            else{
+                track_queue_wgt5.push_back(max_tracks-1);
+            }
+        }
+        else{
+            track_queue_wgt5.push_back(rand_gen(track_queue_wgt5.back(),max_tracks));
         }
     }
     //FIFO Tests
