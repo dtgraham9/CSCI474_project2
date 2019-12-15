@@ -165,11 +165,11 @@ int main(int argc, char *argv[]){
         std::cout << "queue_add_size: number of requests passed to an algorithm at a time" << std::endl;
         exit(argc); 
     }
-    int num_reads = (int)argv[2], max_tracks = (int)argv[3], rand_tracks = (int)argv[1], max_buffer = (int)argv[4], small_buffer = (int)argv[5];
+    int num_reads = atoi(argv[2]), max_tracks = atoi(argv[3]), rand_tracks = atoi(argv[1]), max_buffer = atoi(argv[4]), small_buffer = atoi(argv[5]);
     //vars to keep track of number of successful reads for each scheduler
     int fifo_good_reads = 0, lifo_good_reads = 0, sstf_good_reads = 0, scan_good_reads = 0, n_step_good_reads = 0, cscan_good_reads = 0, fscan_good_reads = 0;
     //vars to set number of requests per scheduler
-    int add_size = (int)argv[6]; 
+    int add_size = atoi(argv[6]); 
     //var for starting track
     int start_track = 50;
     std::vector<int> track_queue1, track_queue2, track_queue3, track_queue4, track_queue5;
@@ -444,7 +444,7 @@ int main(int argc, char *argv[]){
         }
         sstf_sch.read();
     }
-    std::string report = sstf_sch.print_report();
+    report = sstf_sch.print_report();
     std::cout << "SSTF Standard Test" << "\n" << report << std::endl;
 
 
@@ -503,7 +503,7 @@ int main(int argc, char *argv[]){
         }
         scan_sch.read();
     }
-    std::string report = scan_sch.print_report();
+    report = scan_sch.print_report();
     std::cout << "SCAN Standard Test" << "\n" << report << std::endl;
 
     // CSCAN Tests
@@ -561,7 +561,7 @@ int main(int argc, char *argv[]){
         }
         cscan_sch.read();
     }
-    std::string report = cscan_sch.print_report();
+    report = cscan_sch.print_report();
     std::cout << "CSCAN Standard Test" << "\n" << report << std::endl;
 
     // N_STEP_SCAN Tests
