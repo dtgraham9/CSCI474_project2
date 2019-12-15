@@ -20,7 +20,7 @@ private:
     int num_tracks_requested;
     direction current_direction;
     std::ofstream scanfile;
-    int avg_num_track;
+    double avg_num_track;
 
 public:
     n_step_scan(int,int,int, int, direction);
@@ -29,6 +29,7 @@ public:
     void add(int);
     bool full();
     void reset(std::string, int);
+    std::string print_report();
 private:
     void determine_write_length();
     int next_read_index();
@@ -36,5 +37,5 @@ private:
     int handle_DEC();
     int handle_IDLE();
     bool read_ready();
-    void print_report();
+
 };

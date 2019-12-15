@@ -237,10 +237,10 @@ void n_step_scan::add(int track){
     read_buffer.push_back(track);
 }
 
-void n_step_scan::print_report(){
+std::string n_step_scan::print_report(){
 
 
-avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
+avg_num_track = (double) num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
@@ -248,6 +248,16 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile <<"________________________________________\nTotal Tracks Traversed: ";
     scanfile << num_tracks_traversed << "\nAverage Seek Length: " << std::setprecision(5) << avg_num_track;
     scanfile.close();
+    std::ostringstream streamObj;
+//Add double to stream
+    streamObj << std::fixed;
+ 
+    // Set precision to 2 digits
+    streamObj << std::setprecision(5);
+    
+    //Add double to stream
+    streamObj << avg_num_track;
+    return "Total Tracks Traversed: " + std::to_string(num_tracks_traversed) + "\nAverage Seek Length: " + streamObj.str();
 
 }
 

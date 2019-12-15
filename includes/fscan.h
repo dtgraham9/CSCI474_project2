@@ -15,13 +15,14 @@ private:
     int num_tracks_traversed;
     int num_tracks_requested;
     std::ofstream scanfile;
-    int avg_num_track;
+    double avg_num_track;
     
 public:
     fscan(int, int, int, direction);
     void read();
     void add(int);
     void reset(std::string, int);
+    std::string print_report();
 
 private:
     int handle_DEC();
@@ -29,5 +30,5 @@ private:
     int handle_IDLE();
     int next_read_index();
     bool read_ready();
-    void print_report();
+    
 };
