@@ -317,6 +317,9 @@ int main(int argc, char *argv[]){
     fifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 199", 199, add_size);
     fifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 199", 199, add_size);
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
+    // LIFO Tests
+    // reads in lifo_read_size entries from the track_queue:
+    // Track 0 tests
     lifo lifo_sch(max_tracks, max_buffer, start_track);
     lifo_sim(lifo_sch, track_queue1, "LIFO Random Test 1 @ 0", 0, add_size);
     lifo_sim(lifo_sch, track_queue2, "LIFO Random Test 2 @ 0", 0, add_size);
@@ -324,54 +327,261 @@ int main(int argc, char *argv[]){
     lifo_sim(lifo_sch, track_queue4, "LIFO Random Test 4 @ 0", 0, add_size);
     lifo_sim(lifo_sch, track_queue5, "LIFO Random Test 5 @ 0", 0, add_size);
     // Track 100 tests
-    lifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue1, "LIFO Random Test 1 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue2, "LIFO Random Test 2 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue3, "LIFO Random Test 3 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue4, "LIFO Random Test 4 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue5, "LIFO Random Test 5 @ 100", 100, add_size);
     // Track 199 tests
-    lifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue1, "LIFO Random Test 1 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue2, "LIFO Random Test 2 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue3, "LIFO Random Test 3 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue4, "LIFO Random Test 4 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue5, "LIFO Random Test 5 @ 199", 199, add_size);
     //-------------------
-    //Weighted FIFO Tests
+    //Weighted LIFO Tests
     //-------------------
     // Track 0 tests
-    lifo_sim(fifo_sch, track_queue_wgt1, "FIFO Weighted Random Test 1 @ 0", 0, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt2, "FIFO Weighted Random Test 2 @ 0", 0, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 0", 0, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 0", 0, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 0", 0, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt1, "LIFO Weighted Random Test 1 @ 0", 0, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt2, "LIFO Weighted Random Test 2 @ 0", 0, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt3, "LIFO Weighted Random Test 3 @ 0", 0, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt4, "LIFO Weighted Random Test 4 @ 0", 0, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt5, "LIFO Weighted Random Test 5 @ 0", 0, add_size);
     // Track 100 tests
-    lifo_sim(fifo_sch, track_queue_wgt1, "FIFO Weighted Random Test 1 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt2, "FIFO Weighted Random Test 2 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 100", 100, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt1, "LIFO Weighted Random Test 1 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt2, "LIFO Weighted Random Test 2 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt3, "LIFO Weighted Random Test 3 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt4, "LIFO Weighted Random Test 4 @ 100", 100, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt5, "LIFO Weighted Random Test 5 @ 100", 100, add_size);
     // Track 199 tests
-    lifo_sim(fifo_sch, track_queue_wgt1, "FIFO Weighted Random Test 1 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt2, "FIFO Weighted Random Test 2 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 199", 199, add_size);
-    lifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt1, "LIFO Weighted Random Test 1 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt2, "LIFO Weighted Random Test 2 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt3, "LIFO Weighted Random Test 3 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt4, "LIFO Weighted Random Test 4 @ 199", 199, add_size);
+    lifo_sim(lifo_sch, track_queue_wgt5, "LIFO Weighted Random Test 5 @ 199", 199, add_size);
     
 
+    // checks if the sstf read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments sstf_good_reads
+    // SSTF Tests
+    // reads in SSTF_read_size entries from the track_queue:
+    // Track 0 tests
     sstf sstf_sch(max_tracks, max_buffer, start_track);
     sstf_sim(sstf_sch, track_queue1, "SSTF Random Test 1 @ 0", 0, add_size);
-
-    scan scan_sch(max_tracks, max_buffer, start_track);
-    scan_sim(scan_sch, track_queue1, "SCAN RANDOM TEST 1 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue2, "SSTF Random Test 2 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue3, "SSTF Random Test 3 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue4, "SSTF Random Test 4 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue5, "SSTF Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    sstf_sim(sstf_sch, track_queue1, "SSTF Random Test 1 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue2, "SSTF Random Test 2 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue3, "SSTF Random Test 3 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue4, "SSTF Random Test 4 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue5, "SSTF Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    sstf_sim(sstf_sch, track_queue1, "SSTF Random Test 1 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue2, "SSTF Random Test 2 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue3, "SSTF Random Test 3 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue4, "SSTF Random Test 4 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue5, "SSTF Random Test 5 @ 199", 199, add_size);
+    //-------------------
+    //Weighted SSTF Tests
+    //-------------------
+    // Track 0 tests
+    sstf_sim(sstf_sch, track_queue_wgt1, "SSTF Weighted Random Test 1 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt2, "SSTF Weighted Random Test 2 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt3, "SSTF Weighted Random Test 3 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt4, "SSTF Weighted Random Test 4 @ 0", 0, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt5, "SSTF Weighted Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    sstf_sim(sstf_sch, track_queue_wgt1, "SSTF Weighted Random Test 1 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt2, "SSTF Weighted Random Test 2 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt3, "SSTF Weighted Random Test 3 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt4, "SSTF Weighted Random Test 4 @ 100", 100, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt5, "SSTF Weighted Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    sstf_sim(sstf_sch, track_queue_wgt1, "SSTF Weighted Random Test 1 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt2, "SSTF Weighted Random Test 2 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt3, "SSTF Weighted Random Test 3 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt4, "SSTF Weighted Random Test 4 @ 199", 199, add_size);
+    sstf_sim(sstf_sch, track_queue_wgt5, "SSTF Weighted Random Test 5 @ 199", 199, add_size);
     
+    // SCAN Tests
+    // reads in scan_read_size entries from the track_queue:
+    // Track 0 tests
+    // checks if the scan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments scan_good_reads
+    scan scan_sch(max_tracks, max_buffer, start_track);
+    scan_sim(scan_sch, track_queue1, "SCAN Random Test 1 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue2, "SCAN Random Test 2 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue3, "SCAN Random Test 3 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue4, "SCAN Random Test 4 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue5, "SCAN Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    scan_sim(scan_sch, track_queue1, "SCAN Random Test 1 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue2, "SCAN Random Test 2 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue3, "SCAN Random Test 3 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue4, "SCAN Random Test 4 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue5, "SCAN Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    scan_sim(scan_sch, track_queue1, "SCAN Random Test 1 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue2, "SCAN Random Test 2 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue3, "SCAN Random Test 3 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue4, "SCAN Random Test 4 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue5, "SCAN Random Test 5 @ 199", 199, add_size);
+    //-------------------
+    //Weighted SCAN Tests
+    //-------------------
+    // Track 0 tests
+    scan_sim(scan_sch, track_queue_wgt1, "SCAN Weighted Random Test 1 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue_wgt2, "SCAN Weighted Random Test 2 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue_wgt3, "SCAN Weighted Random Test 3 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue_wgt4, "SCAN Weighted Random Test 4 @ 0", 0, add_size);
+    scan_sim(scan_sch, track_queue_wgt5, "SCAN Weighted Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    scan_sim(scan_sch, track_queue_wgt1, "SCAN Weighted Random Test 1 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue_wgt2, "SCAN Weighted Random Test 2 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue_wgt3, "SCAN Weighted Random Test 3 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue_wgt4, "SCAN Weighted Random Test 4 @ 100", 100, add_size);
+    scan_sim(scan_sch, track_queue_wgt5, "SCAN Weighted Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    scan_sim(scan_sch, track_queue_wgt1, "SCAN Weighted Random Test 1 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue_wgt2, "SCAN Weighted Random Test 2 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue_wgt3, "SCAN Weighted Random Test 3 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue_wgt4, "SCAN Weighted Random Test 4 @ 199", 199, add_size);
+    scan_sim(scan_sch, track_queue_wgt5, "SCAN Weighted Random Test 5 @ 199", 199, add_size);
+    
+    // CSCAN Tests
+    // reads in cscan_read_size entries from the track_queue:
+    // Track 0 tests
+    // checks if the cscan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments cscan_good_reads
     cscan cscan_sch(max_tracks, max_buffer, start_track, INC);
-    cscan_sim(cscan_sch, track_queue1, "CSCAN RANDOM TEST 1 @ 0",0, add_size, IDLE);
+    cscan_sim(cscan_sch, track_queue1, "CSCAN Random Test 1 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue2, "CSCAN Random Test 2 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue3, "CSCAN Random Test 3 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue4, "CSCAN Random Test 4 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue5, "CSCAN Random Test 5 @ 0", 0, add_size, INC);
+    // Track 100 tests
+    cscan_sim(cscan_sch, track_queue1, "CSCAN Random Test 1 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue2, "CSCAN Random Test 2 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue3, "CSCAN Random Test 3 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue4, "CSCAN Random Test 4 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue5, "CSCAN Random Test 5 @ 100", 100, add_size, INC);
+    // Track 199 tests
+    cscan_sim(cscan_sch, track_queue1, "CSCAN Random Test 1 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue2, "CSCAN Random Test 2 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue3, "CSCAN Random Test 3 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue4, "CSCAN Random Test 4 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue5, "CSCAN Random Test 5 @ 199", 199, add_size, INC);
+    //-------------------
+    //Weighted CSCAN Tests
+    //-------------------
+    // Track 0 tests
+    cscan_sim(cscan_sch, track_queue_wgt1, "CSCAN Weighted Random Test 1 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt2, "CSCAN Weighted Random Test 2 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt3, "CSCAN Weighted Random Test 3 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt4, "CSCAN Weighted Random Test 4 @ 0", 0, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt5, "CSCAN Weighted Random Test 5 @ 0", 0, add_size, INC);
+    // Track 100 tests
+    cscan_sim(cscan_sch, track_queue_wgt1, "CSCAN Weighted Random Test 1 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt2, "CSCAN Weighted Random Test 2 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt3, "CSCAN Weighted Random Test 3 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt4, "CSCAN Weighted Random Test 4 @ 100", 100, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt5, "CSCAN Weighted Random Test 5 @ 100", 100, add_size, INC);
+    // Track 199 tests
+    cscan_sim(cscan_sch, track_queue_wgt1, "CSCAN Weighted Random Test 1 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt2, "CSCAN Weighted Random Test 2 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt3, "CSCAN Weighted Random Test 3 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt4, "CSCAN Weighted Random Test 4 @ 199", 199, add_size, INC);
+    cscan_sim(cscan_sch, track_queue_wgt5, "CSCAN Weighted Random Test 5 @ 199", 199, add_size, INC);
 
-    n_step_scan n_step_sch(max_tracks, max_buffer, start_track, small_buffer, IDLE);
-    n_step_sim(n_step_sch, track_queue1, "N STEP SCAN RANDOM TEST 1 @ 0",0 ,add_size);
+    // N_STEP_SCAN Tests
+    // reads in n_step_scan_read_size entries from the track_queue:
+    // Track 0 tests
+    // checks if the n_step_scan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments n_step_scan_good_reads
+	n_step_scan n_step_sch(max_tracks, max_buffer, start_track, small_buffer, IDLE);
+	n_step_sim(n_step_sch, track_queue1, "N STEP SCAN Random Test 1 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue2, "N STEP SCAN Random Test 2 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue3, "N STEP SCAN Random Test 3 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue4, "N STEP SCAN Random Test 4 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue5, "N STEP SCAN Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    n_step_sim(n_step_sch, track_queue1, "N STEP SCAN Random Test 1 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue2, "N STEP SCAN Random Test 2 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue3, "N STEP SCAN Random Test 3 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue4, "N STEP SCAN Random Test 4 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue5, "N STEP SCAN Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    n_step_sim(n_step_sch, track_queue1, "N STEP SCAN Random Test 1 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue2, "N STEP SCAN Random Test 2 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue3, "N STEP SCAN Random Test 3 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue4, "N STEP SCAN Random Test 4 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue5, "N STEP SCAN Random Test 5 @ 199", 199, add_size);
+    //-------------------
+    //Weighted N STEP SCAN Tests
+    //-------------------
+    // Track 0 tests
+    n_step_sim(n_step_sch, track_queue_wgt1, "N STEP SCAN Weighted Random Test 1 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt2, "N STEP SCAN Weighted Random Test 2 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt3, "N STEP SCAN Weighted Random Test 3 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt4, "N STEP SCAN Weighted Random Test 4 @ 0", 0, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt5, "N STEP SCAN Weighted Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    n_step_sim(n_step_sch, track_queue_wgt1, "N STEP SCAN Weighted Random Test 1 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt2, "N STEP SCAN Weighted Random Test 2 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt3, "N STEP SCAN Weighted Random Test 3 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt4, "N STEP SCAN Weighted Random Test 4 @ 100", 100, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt5, "N STEP SCAN Weighted Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    n_step_sim(n_step_sch, track_queue_wgt1, "N STEP SCAN Weighted Random Test 1 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt2, "N STEP SCAN Weighted Random Test 2 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt3, "N STEP SCAN Weighted Random Test 3 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt4, "N STEP SCAN Weighted Random Test 4 @ 199", 199, add_size);
+    n_step_sim(n_step_sch, track_queue_wgt5, "N STEP SCAN Weighted Random Test 5 @ 199", 199, add_size);
 
-    fscan fscan_sch(max_tracks, max_buffer, start_track, IDLE);
-    fscan_sim(fscan_sch, track_queue1, "FSCAN RANDOM TEST 1 @ 0",0, add_size);
+    
+    // FSCAN Tests
+    // reads in fscan_read_size entries from the track_queue:
+    // Track 0 tests
+    // checks if the fscan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments fscan_good_reads
+	fscan fscan_sch(max_tracks, max_buffer, start_track, IDLE);
+	fscan_sim(fscan_sch, track_queue1, "FSCAN Random Test 1 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue2, "FSCAN Random Test 2 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue3, "FSCAN Random Test 3 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue4, "FSCAN Random Test 4 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue5, "FSCAN Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    fscan_sim(fscan_sch, track_queue1, "FSCAN Random Test 1 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue2, "FSCAN Random Test 2 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue3, "FSCAN Random Test 3 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue4, "FSCAN Random Test 4 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue5, "FSCAN Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    fscan_sim(fscan_sch, track_queue1, "FSCAN Random Test 1 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue2, "FSCAN Random Test 2 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue3, "FSCAN Random Test 3 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue4, "FSCAN Random Test 4 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue5, "FSCAN Random Test 5 @ 199", 199, add_size);
+    //-------------------
+    //Weighted FSCAN Tests
+    //-------------------
+    // Track 0 tests
+    fscan_sim(fscan_sch, track_queue_wgt1, "FSCAN Weighted Random Test 1 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt2, "FSCAN Weighted Random Test 2 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt3, "FSCAN Weighted Random Test 3 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt4, "FSCAN Weighted Random Test 4 @ 0", 0, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt5, "FSCAN Weighted Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    fscan_sim(fscan_sch, track_queue_wgt1, "FSCAN Weighted Random Test 1 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt2, "FSCAN Weighted Random Test 2 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt3, "FSCAN Weighted Random Test 3 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt4, "FSCAN Weighted Random Test 4 @ 100", 100, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt5, "FSCAN Weighted Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    fscan_sim(fscan_sch, track_queue_wgt1, "FSCAN Weighted Random Test 1 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt2, "FSCAN Weighted Random Test 2 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt3, "FSCAN Weighted Random Test 3 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt4, "FSCAN Weighted Random Test 4 @ 199", 199, add_size);
+    fscan_sim(fscan_sch, track_queue_wgt5, "FSCAN Weighted Random Test 5 @ 199", 199, add_size);
+
     // lifo lifo_sch(max_tracks, max_buffer, start_track);
     // lifo_sch.reset("Random Test", start_track);
     // for(int i = 0; i < track_queue.size(); ){
