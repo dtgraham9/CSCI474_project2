@@ -7,6 +7,12 @@
 #include <cmath>
 #include <iomanip>
 #include "fifo.h"
+#include "lifo.h"
+#include "sstf.h"
+#include "scan.h"
+#include "cscan.h"
+#include "n_step_scan.h"
+#include "fscan.h"
 
 
 
