@@ -24,7 +24,7 @@ public:
     void read();
     void add(int);
     int space_left(); 
-    void print_report();
+    std::string print_report();
     void reset(std::string, int);
     
 private:  

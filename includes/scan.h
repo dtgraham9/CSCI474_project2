@@ -17,7 +17,7 @@ private:
     int num_tracks_traversed;  
     std::fstream scanfile;
     int num_tracks_requested;
-    int avg_num_track;
+    double avg_num_track;
     int read_buff_size;
 
 public:
@@ -27,7 +27,7 @@ public:
     void add_tracks(std::vector<int> &);
     int space_left();
     void read();
-    void print_report();
+    std::string print_report();
     void reset(std::string, int);
 
 private:
