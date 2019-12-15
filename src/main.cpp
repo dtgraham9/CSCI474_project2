@@ -330,7 +330,7 @@ int main(int argc, char *argv[]){
     fifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 199", 199, add_size);
     fifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 199", 199, add_size);
     // Standard FIFO Test
-    fifo_sch.reset("FIFO Standard Test", start_track);
+    fifo_sch.reset("FIFO Standard Test", 100);
     for(int i = 0; i < standard.size(); ){
         for(int j = i; j < i+add_size; ++j){
             if(fifo_sch.full()){
@@ -433,7 +433,7 @@ int main(int argc, char *argv[]){
     sstf_sim(sstf_sch, track_queue_wgt4, "SSTF Weighted Random Test 4 @ 199", 199, add_size);
     sstf_sim(sstf_sch, track_queue_wgt5, "SSTF Weighted Random Test 5 @ 199", 199, add_size);
     // SSTF Standard Test
-    sstf_sch.reset("SSTF Standard Test", start_track);
+    sstf_sch.reset("SSTF Standard Test", 100);
     for(int i = 0; i < standard.size(); ){
         for(int j = i; j < i+add_size; ++j){
             if(sstf_sch.full()){
@@ -492,7 +492,7 @@ int main(int argc, char *argv[]){
     scan_sim(scan_sch, track_queue_wgt4, "SCAN Weighted Random Test 4 @ 199", 199, add_size);
     scan_sim(scan_sch, track_queue_wgt5, "SCAN Weighted Random Test 5 @ 199", 199, add_size);
     // SCAN Standard Test
-    scan_sch.reset("SCAN Standard Test", start_track);
+    scan_sch.reset("SCAN Standard Test", 100);
     for(int i = 0; i < standard.size(); ){
         for(int j = i; j < i+add_size; ++j){
             if(scan_sch.full()){
@@ -550,7 +550,7 @@ int main(int argc, char *argv[]){
     cscan_sim(cscan_sch, track_queue_wgt4, "CSCAN Weighted Random Test 4 @ 199", 199, add_size, INC);
     cscan_sim(cscan_sch, track_queue_wgt5, "CSCAN Weighted Random Test 5 @ 199", 199, add_size, INC);
     // CSCAN Standard Test
-    cscan_sch.reset("CSCAN Standard Test", start_track);
+    cscan_sch.reset("CSCAN Standard Test", 100);
     for(int i = 0; i < standard.size(); ){
         for(int j = i; j < i+add_size; ++j){
             if(cscan_sch.full()){
