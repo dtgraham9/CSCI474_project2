@@ -54,7 +54,8 @@ void fifo_sim(int max_buffer, int max_tracks, std::vector<int> & fifo_rand, std:
         }
         fifo_sch.read();
     }
-    fifo_sch.print_report();
+    std::string report = fifo_sch.print_report();
+    std::cout << test_name << "\n" << report << std::endl;
 }
 
 
