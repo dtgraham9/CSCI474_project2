@@ -69,12 +69,10 @@ void fifo::read(){
     
     //write into file
     scanfile.open("fifo.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile<< requested_track << "\t" << diff_tracks <<std::endl;
     scanfile.close();
     
     num_tracks_traversed += diff_tracks;
-
-    read_queue.pop();
 
     num_tracks_requested+=1;
     
