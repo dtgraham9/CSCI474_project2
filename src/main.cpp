@@ -35,9 +35,16 @@ int rand_gen(int prev_track, int max_tracks){
 
 int main(int argc, char *argv[]){
     int num_reads =1000, max_tracks=200, rand_tracks = 1000;
-    //vars to keep track of 
+    //vars to keep track of number of successful reads for each scheduler
     int fifo_good_reads = 0, lifo_good_reads = 0, sstf_good_reads = 0, scan_good_reads = 0, n_step_good_reads = 0, cscan_good_reads = 0, fscan_good_reads = 0;
+    //vars to set number of requests per scheduler
+    int fifo_read_size = 25, lifo_read_size = 25, sstf_read_size = 25, scan_read_size = 25, n_step_read_size = 25, cscan_read_size = 25, fscan_read_size = 25; 
     std::vector<int> track_queue;
+    fifo queue;
+    lifo stack;
+    sstf seek;
+    scan elevator;
+
     srand(time(0));
 
     for(int i = 0; i < num_reads; ++i){
@@ -68,50 +75,50 @@ int main(int argc, char *argv[]){
         }
     }
     // checks if the fifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments fifo_good_reads
-    if(fifo.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!fifo.full()){
+        for(int j = 1; j < fifo_read_size; ++j){
             //read_queue.add(track_queue_wgt.front());
         }
         fifo_good_reads++;
     }
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
-    if(lifo.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!lifo.full()){
+        for(int j = 1; j < lifo_read_size; ++j){
             //read_stack.add(track_queue_wgt.front());
         }
         lifo_good_reads++;
     }
     // checks if the sstf read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments sstf_good_reads
-    if(sstf.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!sstf.full()){
+        for(int j = 1; j < sstf_read_size; ++j){
             //read_buffer.add(track_queue_wgt.front());
         }
         sstf_good_reads++;
     }
     // checks if the scan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments scan_good_reads
-    if(scan.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!scan.full()){
+        for(int j = 1; j < scan_read_size; ++j){
             //read_buffer.add(track_queue_wgt.front());
         }
         scan_good_reads++;
     }
     // checks if the cscan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments cscan_good_reads
-    if(cscan.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!cscan.full()){
+        for(int j = 1; j < cscan_read_size; ++j){
             //read_buffer.add(track_queue_wgt.front());
         }
         cscan_good_reads++;
     }
     // checks if the n_step_scan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments n_step_good_reads
-    if(n_step_scan.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!n_step_scan.full()){
+        for(int j = 1; j < n_step_read_size; ++j){
             //read_buffer.add(track_queue_wgt.front());
         }
         n_step_good_reads++;
     }
     // checks if the fscan read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments fscan_good_reads
-    if(fscan.space_left() > 0){
-        for(int j = 1; j < 25; ++j){
+    if(!fscan.full()){
+        for(int j = 1; j < fscan_read_size; ++j){
             //read_buffer.add(track_queue_wgt.front());
         }
         fscan_good_reads++;
