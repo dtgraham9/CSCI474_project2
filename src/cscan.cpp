@@ -151,16 +151,15 @@ void cscan::read(){
 
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
-    
+    current_track = requested_track;
     //write into file
     scanfile.open("cscan.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile<< requested_track << "\t\t\t" << diff_tracks << std::endl;
     scanfile.close();
     
     num_tracks_traversed += diff_tracks;
-
+    current_track = requested_track;
     read_buffer.erase(read_buffer.begin() + read_index);
-
     num_tracks_requested+=1;
     read_buff_size--;
     

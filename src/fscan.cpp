@@ -198,20 +198,20 @@ void fscan::read(){
     read_index = next_read_index();
     requested_track = read_buffer[read_index];
     diff_tracks = abs(requested_track - current_track);
-
+    current_track = requested_track;
     //logging
     //Reopen log file and write entry, then close
     //Implement logging of track request and travel
-    
     //write into file
     scanfile.open("fscan.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile<< requested_track << "\t\t\t" << diff_tracks << std::endl;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
     read_buffer.erase(read_buffer.begin() + read_index);
     num_tracks_requested += 1;
     write_queue_size--;
+    
 }
 
 void fscan::add(int track){

@@ -67,12 +67,10 @@ void lifo::read(){
     
     //write into file
     scanfile.open("lifo.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile<< requested_track << "\t\t\t" << diff_tracks << std::endl;
     scanfile.close();
     
     num_tracks_traversed += diff_tracks;
-
-    read_stack.pop();
 
     num_tracks_requested+=1;
     

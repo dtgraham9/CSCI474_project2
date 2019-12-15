@@ -61,8 +61,9 @@ void sstf::read(){
     --read_buff_size;
     requested_track = read_buffer[read_index];
     diff_tracks = abs(requested_track - current_track);
-    scanfile.open("nstep.log.txt",std::ios_base::app);
-    scanfile<< requested_track << "\t" << diff_tracks;
+    current_track = requested_track;
+    scanfile.open("sstf.log.txt",std::ios_base::app);
+    scanfile<< requested_track << "\t\t\t" << diff_tracks << std::endl;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
