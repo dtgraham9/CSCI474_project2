@@ -154,14 +154,26 @@ void fscan_sim(fscan & fscan_sch, std::vector<int> & fscan_rand, std::string tes
 }
 
 int main(int argc, char *argv[]){
-    int num_reads =1000, max_tracks=200, rand_tracks = 1000, max_buffer = 50, small_buffer =5;
+    if(argc < 7){
+        //error
+        std::cout << "Usage: ./disk_scheduler <number_of_random_requests> <number_of_weighted_random_requests> <max_track_count> <max_buffer_size> <small_buffer_size> <queue_add_size>" << std::endl;
+        std::cout << "number_of_random_requests: used in random number generation of request data" << std::endl;
+        std::cout << "number_of_weighted_random_requests: used in weighted random number generation of request data" << std::endl;
+        std::cout << "max_track_count: max number of tracks to be simulated on disk" << std::endl;
+        std::cout << "max_buffer_size: max number of requests to be tested" << std::endl;
+        std::cout << "small_buffer_size: must be smaller than max buffer" << std::endl;
+        std::cout << "queue_add_size: number of requests passed to an algorithm at a time" << std::endl;
+        exit(argc); 
+    }
+    int num_reads = (int)argv[2], max_tracks = (int)argv[3], rand_tracks = (int)argv[1], max_buffer = (int)argv[4], small_buffer = (int)argv[5];
     //vars to keep track of number of successful reads for each scheduler
     int fifo_good_reads = 0, lifo_good_reads = 0, sstf_good_reads = 0, scan_good_reads = 0, n_step_good_reads = 0, cscan_good_reads = 0, fscan_good_reads = 0;
     //vars to set number of requests per scheduler
-    int add_size = 25; 
+    int add_size = (int)argv[6]; 
     //var for starting track
     int start_track = 50;
     std::vector<int> track_queue1, track_queue2, track_queue3, track_queue4, track_queue5;
+
 
     srand(time(0));
 
