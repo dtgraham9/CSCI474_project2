@@ -79,10 +79,11 @@ int main(int argc, char *argv[]){
             track_queue_wgt.push_back(rand_gen(track_queue_wgt.back(),max_tracks));
         }
     }
+    //FIFO Tests
     // checks if the fifo read_queue is full; if it isn't, reads in fifo_read_size entries from the track_queue_wgt: increments fifo_good_reads
     
-    fifo fifo_sch(max_tracks, max_buffer, start_track);
-    fifo_sch.reset("Random Test", start_track);
+    fifo fifo_sch(max_tracks, max_buffer, 0);
+    fifo_sch.reset("Random Test TQ0-0", 0);
     for(int i = 0; i < track_queue.size(); ){
         for(int j = i; j < i+fifo_read_size; ++j){
             if(fifo_sch.full()){
