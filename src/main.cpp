@@ -173,6 +173,7 @@ int main(int argc, char *argv[]){
     //var for starting track
     int start_track = 50;
     std::vector<int> track_queue1, track_queue2, track_queue3, track_queue4, track_queue5;
+    std::vector<int> standard = {55,58,39,18,90,160,150,38,184};
 
 
     srand(time(0));
@@ -328,6 +329,21 @@ int main(int argc, char *argv[]){
     fifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 199", 199, add_size);
     fifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 199", 199, add_size);
     fifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 199", 199, add_size);
+    // Standard FIFO Test
+    fifo_sch.reset("FIFO Standard Test", start_track);
+    for(int i = 0; i < standard.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(fifo_sch.full()){
+                i = j;
+                break;
+            }
+            fifo_sch.add(standard[j]);
+        }
+        fifo_sch.read();
+    }
+    std::string report = fifo_sch.print_report();
+    std::cout << "FIFO Standard Test" << "\n" << report << std::endl;
+
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
     // LIFO Tests
     // reads in lifo_read_size entries from the track_queue:
@@ -416,7 +432,22 @@ int main(int argc, char *argv[]){
     sstf_sim(sstf_sch, track_queue_wgt3, "SSTF Weighted Random Test 3 @ 199", 199, add_size);
     sstf_sim(sstf_sch, track_queue_wgt4, "SSTF Weighted Random Test 4 @ 199", 199, add_size);
     sstf_sim(sstf_sch, track_queue_wgt5, "SSTF Weighted Random Test 5 @ 199", 199, add_size);
-    
+    // SSTF Standard Test
+    sstf_sch.reset("SSTF Standard Test", start_track);
+    for(int i = 0; i < standard.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(sstf_sch.full()){
+                i = j;
+                break;
+            }
+            sstf_sch.add(standard[j]);
+        }
+        sstf_sch.read();
+    }
+    std::string report = sstf_sch.print_report();
+    std::cout << "SSTF Standard Test" << "\n" << report << std::endl;
+
+
     // SCAN Tests
     // reads in scan_read_size entries from the track_queue:
     // Track 0 tests
@@ -460,7 +491,21 @@ int main(int argc, char *argv[]){
     scan_sim(scan_sch, track_queue_wgt3, "SCAN Weighted Random Test 3 @ 199", 199, add_size);
     scan_sim(scan_sch, track_queue_wgt4, "SCAN Weighted Random Test 4 @ 199", 199, add_size);
     scan_sim(scan_sch, track_queue_wgt5, "SCAN Weighted Random Test 5 @ 199", 199, add_size);
-    
+    // SCAN Standard Test
+    scan_sch.reset("SCAN Standard Test", start_track);
+    for(int i = 0; i < standard.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(scan_sch.full()){
+                i = j;
+                break;
+            }
+            scan_sch.add(standard[j]);
+        }
+        scan_sch.read();
+    }
+    std::string report = scan_sch.print_report();
+    std::cout << "SCAN Standard Test" << "\n" << report << std::endl;
+
     // CSCAN Tests
     // reads in cscan_read_size entries from the track_queue:
     // Track 0 tests
@@ -504,6 +549,20 @@ int main(int argc, char *argv[]){
     cscan_sim(cscan_sch, track_queue_wgt3, "CSCAN Weighted Random Test 3 @ 199", 199, add_size, INC);
     cscan_sim(cscan_sch, track_queue_wgt4, "CSCAN Weighted Random Test 4 @ 199", 199, add_size, INC);
     cscan_sim(cscan_sch, track_queue_wgt5, "CSCAN Weighted Random Test 5 @ 199", 199, add_size, INC);
+    // CSCAN Standard Test
+    cscan_sch.reset("CSCAN Standard Test", start_track);
+    for(int i = 0; i < standard.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(cscan_sch.full()){
+                i = j;
+                break;
+            }
+            cscan_sch.add(standard[j]);
+        }
+        cscan_sch.read();
+    }
+    std::string report = cscan_sch.print_report();
+    std::cout << "CSCAN Standard Test" << "\n" << report << std::endl;
 
     // N_STEP_SCAN Tests
     // reads in n_step_scan_read_size entries from the track_queue:
