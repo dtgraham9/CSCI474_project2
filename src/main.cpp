@@ -41,6 +41,22 @@ int rand_gen(int prev_track, int max_tracks){
     throw "Random generator not working";
 }
 
+void fifo_sim(int max_buffer, int max_tracks, std::vector<int> & fifo_rand, std::string test_name, int start_track, int add_size){
+    fifo fifo_sch(max_tracks, max_buffer, start_track);
+    fifo_sch.reset(test_name, start_track);
+    for(int i = 0; i < fifo_rand.size(); ){
+        for(int j = i; j < i+add_size; ++j){
+            if(fifo_sch.full()){
+                i = j;
+                break;
+            }
+            fifo_sch.add(fifo_rand[j]);
+        }
+        fifo_sch.read();
+    }
+    fifo_sch.print_report();
+}
+
 
 int main(int argc, char *argv[]){
     int num_reads =1000, max_tracks=200, rand_tracks = 1000, max_buffer = 50;
@@ -81,21 +97,7 @@ int main(int argc, char *argv[]){
     }
     //FIFO Tests
     // checks if the fifo read_queue is full; if it isn't, reads in fifo_read_size entries from the track_queue_wgt: increments fifo_good_reads
-    
-    fifo fifo_sch(max_tracks, max_buffer, 0);
-    fifo_sch.reset("Random Test TQ0-0", 0);
-    for(int i = 0; i < track_queue.size(); ){
-        for(int j = i; j < i+fifo_read_size; ++j){
-            if(fifo_sch.full()){
-                i = j;
-                break;
-            }
-            fifo_sch.add(track_queue[j]);
-        }
-        fifo_sch.read();
-    }
-    fifo_sch.print_report();
-
+    fifo_sim(max_buffer, max_tracks, track_queue, "Random Test 1", 0, 25);
     
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
     

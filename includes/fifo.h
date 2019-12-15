@@ -25,7 +25,7 @@ public:
     void add(int);
     void add_tracks(std::vector<int> &);
     int space_left(); 
-    void print_report();
+    std::string print_report();
     void reset(std::string, int);
     bool read_ready();
 };

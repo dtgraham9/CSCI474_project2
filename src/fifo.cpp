@@ -92,7 +92,7 @@ int fifo::space_left(){
     return MAX_BUFFER - read_queue.size();
 }
 
-void fifo::print_report(){
+std::string fifo::print_report(){
 
 
 avg_num_track = (double) num_tracks_traversed/num_tracks_requested;
