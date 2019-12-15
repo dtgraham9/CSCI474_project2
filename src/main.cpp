@@ -51,8 +51,6 @@ int main(int argc, char *argv[]){
         track_queue.push_back(rand() % max_tracks);
     }
 
-    rand_gen(2, 200);
-
     std::vector<int> track_queue_wgt;
     track_queue_wgt.push_back(rand() % max_tracks);
     int hold_rand = 0;

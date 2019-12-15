@@ -18,6 +18,7 @@ private:
     std::fstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
+    int read_buff_size;
 
 public:
     scan(int, int, int);

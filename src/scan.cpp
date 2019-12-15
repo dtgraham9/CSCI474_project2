@@ -21,6 +21,7 @@ scan::scan(const int MAX_TRACKS, const int MAX_BUFFER, int starting_track){
     }
     scanfile.close();
     std::cout << "\nFile created successfully." << endl;
+    read_buff_size =0;
 }
 
 bool scan::full(){
@@ -32,12 +33,15 @@ Check if the request queue has anything to read.
 If it doesn't then the drive will be put into an IDLE state.
 */
 bool scan::read_ready(){
-    if(read_buffer.size() > 0){
+    if(read_buffer.size() > 0 && read_buff_size >0){
+        return true;
+    }
+    else if(read_buffer.size()>0){
+        read_buff_size = read_buffer.size();
         return true;
     }
     else{
-        current_direction = IDLE;
-        return false; 
+        return false;
     }
 }
 /*
@@ -72,7 +76,7 @@ int scan::handle_IDLE(){
     int min_diff_track = MAX_TRACKS;
     int index_track = 0;
     direction new_direction = IDLE;
-    for(int i = 0 ; i < read_buffer.size(); ++i){
+    for(int i = 0 ; i < read_buff_size; ++i){
         diff_track = current_track - read_buffer[i];
         /*Drive head is currently on requested track.
         Return that track index.
@@ -116,7 +120,7 @@ int scan::handle_INC(){
     */
     bool reverse_direction = true;
     direction new_direction = IDLE;
-    for(int i = 0; i < read_buffer.size(); ++i){
+    for(int i = 0; i < read_buff_size; ++i){
         diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
@@ -160,7 +164,7 @@ int scan::handle_DEC(){
     */
     bool reverse_direction = true;
     direction new_direction = IDLE;
-    for(int i = 0; i < read_buffer.size(); ++i){
+    for(int i = 0; i < read_buff_size; ++i){
         diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
@@ -217,6 +221,7 @@ void scan::read(){
     read_buffer.erase(read_buffer.begin()+read_index);
 
     num_tracks_requested+=1;
+    read_buff_size--;
 }
 
 /*
@@ -234,7 +239,7 @@ void scan::add_tracks(std::vector<int> & tracks)
 }
 
 int scan::space_left(){
-    return MAX_BUFFER - read_buffer.size();
+    return MAX_BUFFER - read_buff_size;
 
 }
 

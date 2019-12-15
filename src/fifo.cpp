@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <vector>
 using namespace std;
 
 fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
@@ -19,13 +20,42 @@ fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     num_tracks_traversed = 0;
     num_tracks_requested = 0;
     avg_num_track = 0;
+    hold_buffer.reserve(MAX_BUFFER);
+    queue_locked = false;
+}
+
+bool fifo::full(){
+    int max_size = 0;
+    if(!read_queue.empty()){
+        max_size = MAX_BUFFER - read_queue.size();
+        return max_size == hold_buffer.size();
+    }
+    else{
+        return MAX_BUFFER == hold_buffer.size();
+    }
+}
+
+bool fifo::read_ready(){
+    if(!read_queue.empty()){
+        return true;
+    }
+    else if(hold_buffer.size() == 0){
+        return false;
+    }
+    else{
+        for(int i = 0; i < hold_buffer.size(); ++i){
+            read_queue.push(hold_buffer[i]);
+        }
+        hold_buffer.clear();
+        return true;
+    }
 }
 
 void fifo::read(){
     int read_index = 0;
     int requested_track = 0;
     int diff_tracks = 0;
-    if(!read_queue.empty()){
+    if(!read_ready()){
         return;
     }
 
@@ -51,7 +81,7 @@ void fifo::read(){
 }
 
 void fifo::add(int track){
-    read_queue.push(track);
+    hold_buffer.push_back(track);
 }
 
 void fifo::add_tracks(std::vector<int> & tracks){
@@ -87,5 +117,6 @@ void fifo::reset(std::string test_sim, int new_track){
     num_tracks_traversed= 0;
     num_tracks_requested = 0;
     avg_num_track = 0; 
+    hold_buffer.clear();
 
 }
