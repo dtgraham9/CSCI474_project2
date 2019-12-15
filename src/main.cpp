@@ -274,27 +274,48 @@ int main(int argc, char *argv[]){
             track_queue_wgt5.push_back(rand_gen(track_queue_wgt5.back(),max_tracks));
         }
     }
-    //FIFO Tests
+    // FIFO Tests
     // reads in fifo_read_size entries from the track_queue:
     // Track 0 tests
     fifo fifo_sch(max_tracks, max_buffer, start_track);
     fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 0", 0, add_size);
-    // fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 0", 0, add_size);
-    // fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 0", 0, add_size);
-    // fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 0", 0, add_size);
-    // fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 0", 0, add_size);
-    // // Track 100 tests
-    // fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 100", 100, add_size);
-    // fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 100", 100, add_size);
-    // fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 100", 100, add_size);
-    // fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 100", 100, add_size);
-    // fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 100", 100, add_size);
-    // // Track 199 tests
-    // fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 199", 199, add_size);
-    // fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 199", 199, add_size);
-    // fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 199", 199, add_size);
-    // fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 199", 199, add_size);
-    // fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    fifo_sim(fifo_sch, track_queue1, "FIFO Random Test 1 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue2, "FIFO Random Test 2 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue3, "FIFO Random Test 3 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue4, "FIFO Random Test 4 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue5, "FIFO Random Test 5 @ 199", 199, add_size);
+    //-------------------
+    //Weighted FIFO Tests
+    //-------------------
+    // Track 0 tests
+    fifo_sim(fifo_sch, track_queue_wgt1, "FIFO Weighted Random Test 1 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt2, "FIFO Weighted Random Test 2 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 0", 0, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 0", 0, add_size);
+    // Track 100 tests
+    fifo_sim(fifo_sch, track_queue_wgt1, "FIFO Weighted Random Test 1 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt2, "FIFO Weighted Random Test 2 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 100", 100, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 100", 100, add_size);
+    // Track 199 tests
+    fifo_sim(fifo_sch, track_queue_wgt1, "FIFO Weighted Random Test 1 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt2, "FIFO Weighted Random Test 2 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt3, "FIFO Weighted Random Test 3 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt4, "FIFO Weighted Random Test 4 @ 199", 199, add_size);
+    fifo_sim(fifo_sch, track_queue_wgt5, "FIFO Weighted Random Test 5 @ 199", 199, add_size);
     // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
     lifo lifo_sch(max_tracks, max_buffer, start_track);
     lifo_sim(lifo_sch, track_queue1, "LIFO Random Test 1 @ 0", 0, add_size);
