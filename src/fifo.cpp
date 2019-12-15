@@ -94,14 +94,13 @@ int fifo::space_left(){
 
 void fifo::print_report(){
 
-std::cout << std::setprecision(2) << std::fixed;
 
-avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
+avg_num_track = (double) num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
     scanfile.open("fifo.log.txt",std::ios_base::app);
-    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << std::setprecision(5) << avg_num_track;
     scanfile.close();
 
 
