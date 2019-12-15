@@ -15,7 +15,7 @@ private:
     int num_tracks_traversed;
     std::ofstream scanfile;
     int num_tracks_requested;
-    int avg_num_track;
+    double avg_num_track;
     std::vector<int> hold_buffer;
     
 public:

@@ -7,6 +7,12 @@
 #include <cmath>
 #include <iomanip>
 #include "fifo.h"
+#include "lifo.h"
+#include "sstf.h"
+#include "scan.h"
+#include "cscan.h"
+#include "n_step_scan.h"
+#include "fscan.h"
 
 
 
@@ -42,6 +48,8 @@ int main(int argc, char *argv[]){
     int fifo_good_reads = 0, lifo_good_reads = 0, sstf_good_reads = 0, scan_good_reads = 0, n_step_good_reads = 0, cscan_good_reads = 0, fscan_good_reads = 0;
     //vars to set number of requests per scheduler
     int fifo_read_size = 25, lifo_read_size = 25, sstf_read_size = 25, scan_read_size = 25, n_step_read_size = 25, cscan_read_size = 25, fscan_read_size = 25; 
+    //var for starting track
+    int start_track = 50;
     std::vector<int> track_queue;
 
     srand(time(0));
@@ -71,12 +79,12 @@ int main(int argc, char *argv[]){
             track_queue_wgt.push_back(rand_gen(track_queue_wgt.back(),max_tracks));
         }
     }
-    // checks if the fifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments fifo_good_reads
+    // checks if the fifo read_queue is full; if it isn't, reads in fifo_read_size entries from the track_queue_wgt: increments fifo_good_reads
     
-    fifo fifo_sch(max_tracks, max_buffer, 50);
-    fifo_sch.reset("Random Test", 50);
+    fifo fifo_sch(max_tracks, max_buffer, start_track);
+    fifo_sch.reset("Random Test", start_track);
     for(int i = 0; i < track_queue.size(); ){
-        for(int j = i; j < i+25; ++j){
+        for(int j = i; j < i+fifo_read_size; ++j){
             if(fifo_sch.full()){
                 i = j;
                 break;
@@ -86,6 +94,55 @@ int main(int argc, char *argv[]){
         fifo_sch.read();
     }
     fifo_sch.print_report();
+
     
+    // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments lifo_good_reads
     
+    lifo lifo_sch(max_tracks, max_buffer, start_track);
+    lifo_sch.reset("Random Test", start_track);
+    for(int i = 0; i < track_queue.size(); ){
+        for(int j = i; j < i+lifo_read_size; ++j){
+            if(lifo_sch.full()){
+                i = j;
+                break;
+            }
+            lifo_sch.add(track_queue[j]);
+        }
+        lifo_sch.read();
+    }
+    lifo_sch.print_report();
+    
+    // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments sstf_good_reads
+    /*
+    sstf sstf_sch(max_tracks, max_buffer, start_track);
+    sstf_sch.reset("Random Test", start_track);
+    for(int i = 0; i < track_queue.size(); ){
+        for(int j = i; j < i+sstf_read_size; ++j){
+            if(sstf_sch.full()){
+                i = j;
+                break;
+            }
+            sstf_sch.add(track_queue[j]);
+        }
+        sstf_sch.read();
+    }
+    sstf_sch.print_report();
+    */
+
+   // checks if the lifo read_queue is full; if it isn't, reads in 25 entries from the track_queue_wgt: increments sstf_good_reads
+    /*
+    scan scan_sch(max_tracks, max_buffer, start_track);
+    scan_sch.reset("Random Test", start_track);
+    for(int i = 0; i < track_queue.size(); ){
+        for(int j = i; j < i+sstf_read_size; ++j){
+            if(scan_sch.full()){
+                i = j;
+                break;
+            }
+            scan_sch.add(track_queue[j]);
+        }
+        scan_sch.read();
+    }
+    scan_sch.print_report();
+    */
 }
