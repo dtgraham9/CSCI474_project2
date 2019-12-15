@@ -90,7 +90,7 @@ void lifo::print_report(){
 
 std::cout << std::setprecision(2) << std::fixed;
 
-avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
+avg_num_track = (double) num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
