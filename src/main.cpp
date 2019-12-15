@@ -221,7 +221,7 @@ int main(int argc, char *argv[]){
     for(int i = 1; i < rand_tracks; ++i){
         hold_rand = (rand() % 100) +1; 
         if(hold_rand <= 10 && hold_rand >= 1){
-            track_queue_wgt1.push_back(track_queue_wgt.back());
+            track_queue_wgt1.push_back(track_queue_wgt3.back());
             continue;
         }
         else if(hold_rand == 100){

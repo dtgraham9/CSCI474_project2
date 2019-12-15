@@ -218,6 +218,10 @@ void fscan::add(int track){
     read_buffer.push_back(track);
 }
 
+bool fscan::full(){
+    return MAX_BUFFER == read_buffer.size();
+}
+
 std::string fscan::print_report(){
 
 

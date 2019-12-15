@@ -23,6 +23,7 @@ public:
     void add(int);
     void reset(std::string, int);
     std::string print_report();
+    bool full();
 
 private:
     int handle_DEC();

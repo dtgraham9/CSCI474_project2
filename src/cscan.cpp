@@ -26,6 +26,10 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     read_buff_size = 0;
 }
 
+bool cscan::full(){
+    return MAX_BUFFER == read_buffer.size();
+}
+
 int cscan::next_read_index(){
     int index =0;
     switch(set_direction){

@@ -20,6 +20,7 @@ public:
     void reset(std::string, int);
     bool full();
     std::string print_report();
+    void add(int);
 private:
     
     bool read_ready();

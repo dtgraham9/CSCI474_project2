@@ -71,7 +71,9 @@ void sstf::read(){
 
 }
 
-
+void sstf::add(int track){
+    read_buffer.push_back(track);
+}
 
 std::string sstf::print_report(){
 
