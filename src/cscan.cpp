@@ -23,6 +23,7 @@ cscan::cscan(int MAX_TRACKS, int MAX_BUFFER, int current_track, direction set_di
     }
     scanfile.close();
     std::cout << "\nFile created successfully." << endl;
+    read_buff_size = 0;
 }
 
 int cscan::next_read_index(){
@@ -51,7 +52,7 @@ int cscan::handle_INC(){
     track requests farther away in the increasing direction
     */
     bool reset_drive_head = true;
-    for(int i = 0; i < read_buffer.size(); ++i){
+    for(int i = 0; i < read_buff_size; ++i){
         diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
@@ -92,7 +93,7 @@ int cscan::handle_DEC(){
     track requests farther away in the increasing direction
     */
     bool reset_drive_head = true;
-    for(int i = 0; i < read_buffer.size(); ++i){
+    for(int i = 0; i < read_buff_size; ++i){
         diff_track = current_track - read_buffer[i];
 
         if(diff_track == 0){
@@ -120,7 +121,11 @@ int cscan::handle_DEC(){
 }
 
 bool cscan::read_ready(){
-    if(read_buffer.size()>0){
+    if(read_buffer.size()>0 && read_buff_size > 0){
+        return true;
+    }
+    else if(read_buffer.size() > 0){
+        read_buff_size = read_buffer.size();
         return true;
     }
     else{
@@ -153,6 +158,7 @@ void cscan::read(){
     read_buffer.erase(read_buffer.begin() + read_index);
 
     num_tracks_requested+=1;
+    read_buff_size--;
     
 }
 
@@ -193,4 +199,6 @@ void cscan::reset(std::string test_sim, int new_track){
     num_tracks_traversed = 0;
     avg_num_track = 0;
     current_track = new_track;
+    read_buff_size = 0;
+    read_buffer.clear();
 }

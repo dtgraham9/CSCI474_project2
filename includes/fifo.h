@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 class fifo{
 private:
     std::queue<int> read_queue;
@@ -14,6 +15,8 @@ private:
     std::ofstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
+    std::vector<int> hold_buffer;
+    bool queue_locked;
 
 public:
     fifo(int, int, int);
@@ -24,4 +27,5 @@ public:
     int space_left(); 
     void print_report();
     void reset(std::string, int);
+    bool read_ready();
 };

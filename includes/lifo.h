@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 class lifo{
 private:
@@ -15,6 +16,7 @@ private:
     std::ofstream scanfile;
     int num_tracks_requested;
     int avg_num_track;
+    std::vector<int> hold_buffer;
     
 public:
     lifo(int, int, int);

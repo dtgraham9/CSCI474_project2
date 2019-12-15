@@ -19,13 +19,41 @@ lifo::lifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     num_tracks_traversed = 0;
     num_tracks_requested = 0;
     avg_num_track = 0;
+    hold_buffer.reserve(MAX_BUFFER);
+}
+
+bool lifo::full(){
+    int max_size = 0;
+    if(!read_stack.empty()){
+        max_size = MAX_BUFFER - read_stack.size();
+        return max_size == hold_buffer.size();
+    }
+    else{
+        return MAX_BUFFER == hold_buffer.size();
+    }
+}
+
+bool lifo::read_ready(){
+    if(!read_stack.empty()){
+        return true;
+    }
+    else if(hold_buffer.size() == 0){
+        return false;
+    }
+    else{
+        for(int i = 0; i < hold_buffer.size(); ++i){
+            read_stack.push(hold_buffer[i]);
+        }
+        hold_buffer.clear();
+        return true;
+    }
 }
 
 void lifo::read(){
     int read_index = 0;
     int requested_track = 0;
     int diff_tracks = 0;
-    if(!read_stack.empty()){
+    if(!read_ready()){
         return;
     }
 
@@ -81,4 +109,5 @@ void lifo::reset(std::string test_sim, int new_track){
     num_tracks_requested = 0;
     avg_num_track = 0;
     current_track = new_track;
+    hold_buffer.clear();
 }
