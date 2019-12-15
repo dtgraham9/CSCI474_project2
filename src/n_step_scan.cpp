@@ -1,5 +1,10 @@
 #include "n_step_scan.h"
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+#include <string>
 
 n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track, 
     int SMALL_BUFFER, direction set_direction){
@@ -9,6 +14,13 @@ n_step_scan::n_step_scan(int MAX_TRACKS, int MAX_BUFFER, int current_track,
     read_buffer.reserve(MAX_BUFFER);
     write_queue_size = 0;
     current_direction = set_direction;
+    //Overwrite log file if present and create new then close
+    scanfile.open("nstep.log.txt", std::ofstream::out | std::ofstream::trunc);
+    if(!scanfile){
+      std::cout<<"Error in creating file.."<<endl;
+    }
+    scanfile.close();
+    std::cout << "\nFile created successfully." << endl;
 }
 
 bool n_step_scan::full(){
@@ -207,6 +219,13 @@ void n_step_scan::read(){
     diff_tracks = abs(requested_track - current_track);
 
     //logging
+    //Reopen log file and write entry, then close
+    //Implement logging of track request and travel
+    
+    //write into file
+    scanfile.open("nstep.log.txt",std::ios_base::app);
+    scanfile<< requested_track << "\t" << diff_tracks;
+    scanfile.close();
 
     num_tracks_traversed += diff_tracks;
     read_buffer.erase(read_buffer.begin() + read_index);
@@ -216,4 +235,27 @@ void n_step_scan::read(){
 
 void n_step_scan::add(int track){
     read_buffer.push_back(track);
+}
+
+void n_step_scan::print_report(){
+
+std::cout << std::setprecision(2) << std::fixed;
+
+avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
+
+
+//write into file
+    scanfile.open("nstep.log.txt",std::ios_base::app);
+    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    scanfile.close();
+
+}
+
+void n_step_scan::reset(std::string test_sim, int new_track){
+    current_direction = IDLE;    
+    scanfile.open("nstep.log.txt", std::ios_base::app);
+    scanfile <<"\n#####################################\nNext Track Accessed: \tNumber of Tracks Traversed: " << test_sim << "\n" << std::endl;
+    scanfile.close();
+    num_tracks_traversed = 0;
+    num_tracks_requested = 0;
 }

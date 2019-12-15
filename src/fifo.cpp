@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <string>
 using namespace std;
 
 fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
@@ -15,6 +16,9 @@ fifo::fifo(int MAX_TRACKS, int MAX_BUFFER, int current_track){
     }
     scanfile.close();
     std::cout << "\nFile created successfully." << endl;
+    num_tracks_traversed = 0;
+    num_tracks_requested = 0;
+    avg_num_track = 0;
 }
 
 void fifo::read(){
@@ -35,7 +39,7 @@ void fifo::read(){
     
     //write into file
     scanfile.open("fifo.log.txt",std::ios_base::app);
-    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile<< requested_track << "\t" << diff_tracks;
     scanfile.close();
     
     num_tracks_traversed += diff_tracks;
@@ -72,5 +76,16 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
     scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
     scanfile.close();
 
+
+}
+
+void fifo::reset(std::string test_sim, int new_track){
+    current_track = new_track;
+    scanfile.open("fifo.log.txt", std::ios_base::app);
+    scanfile <<"\n#####################################\nNext Track Accessed: \tNumber of Tracks Traversed: " << test_sim << "\n" << std::endl;
+    scanfile.close();
+    num_tracks_traversed= 0;
+    num_tracks_requested = 0;
+    avg_num_track = 0; 
 
 }

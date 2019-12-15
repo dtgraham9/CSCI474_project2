@@ -209,7 +209,7 @@ void scan::read(){
 
     //write into file
     scanfile.open("scan.log.txt",std::ios_base::app);
-    scanfile<<"Next Track Accessed: " << requested_track << "\n\tNumber of Tracks Traversed: " << diff_tracks;
+    scanfile<< requested_track << "\t" << diff_tracks;
     scanfile.close();
 
     num_tracks_traversed += diff_tracks;
@@ -251,4 +251,15 @@ avg_num_track = (float)num_tracks_traversed/num_tracks_requested;
     scanfile.close();
 
 
+}
+
+void scan::reset(std::string test_sim, int new_track){
+    current_direction = IDLE;
+    current_track = new_track;
+    num_tracks_traversed = 0;  
+    num_tracks_requested= 0;
+    avg_num_track = 0;
+    scanfile.open("scan.log.txt", std::ios_base::app);
+    scanfile <<"#####################################\nNext Track Accessed: \tNumber of Tracks Traversed: " << test_sim << "\n" << std::endl;
+    scanfile.close();
 }

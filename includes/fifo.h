@@ -2,7 +2,7 @@
 #include <queue>
 #include <iostream>
 #include <fstream>
-
+#include <string>
 class fifo{
 private:
     std::queue<int> read_queue;
@@ -23,6 +23,5 @@ public:
     void add_tracks(std::vector<int> &);
     int space_left(); 
     void print_report();
-
-private: 
+    void reset(std::string, int);
 };

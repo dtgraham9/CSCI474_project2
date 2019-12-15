@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "data_struct.h"
+#include <iostream>
+#include <fstream>
 
 class n_step_scan{
 private:
@@ -16,12 +19,16 @@ private:
     int write_queue_size;
     int num_tracks_requested;
     direction current_direction;
+    std::ofstream scanfile;
+    int avg_num_track;
+
 public:
     n_step_scan(int,int,int, int, direction);
     int space_left();
     void read();
     void add(int);
     bool full();
+    void reset(std::string, int);
 private:
     void determine_write_length();
     int next_read_index();
@@ -29,4 +36,5 @@ private:
     int handle_DEC();
     int handle_IDLE();
     bool read_ready();
+    void print_report();
 };
