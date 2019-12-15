@@ -40,10 +40,7 @@ int main(int argc, char *argv[]){
     //vars to set number of requests per scheduler
     int fifo_read_size = 25, lifo_read_size = 25, sstf_read_size = 25, scan_read_size = 25, n_step_read_size = 25, cscan_read_size = 25, fscan_read_size = 25; 
     std::vector<int> track_queue;
-    fifo queue;
-    lifo stack;
-    sstf seek;
-    scan elevator;
+
 
     srand(time(0));
 
