@@ -24,5 +24,4 @@ public:
     void print_report();
     
 private:  
-    bool read_ready();
 };
