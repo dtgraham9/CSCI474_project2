@@ -28,5 +28,4 @@ public:
     void reset(std::string, int);
     
 private:  
-    bool read_ready();
 };
