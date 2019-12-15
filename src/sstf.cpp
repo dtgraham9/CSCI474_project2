@@ -75,14 +75,14 @@ void sstf::read(){
 
 void sstf::print_report(){
 
-std::cout << std::setprecision(2) << std::fixed;
 
 avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
 
 
 //write into file
     scanfile.open("sstf.log.txt",std::ios_base::app);
-    scanfile<<"________________________________________\nTotal Tracks Traversed: " << num_tracks_traversed << "\nAverage Seek Length: " << avg_num_track;
+    scanfile <<"________________________________________\nTotal Tracks Traversed: ";
+    scanfile << num_tracks_traversed << "\nAverage Seek Length: " << std::setprecision(5) << avg_num_track;
     scanfile.close();
 
 
@@ -90,7 +90,8 @@ avg_num_track = (float) num_tracks_traversed/num_tracks_requested;
 
 void sstf::reset(std::string test_sim, int new_track){
     scanfile.open("sstf.log.txt", std::ios_base::app);
-    scanfile <<"\n#####################################\nNext Track Accessed: \tNumber of Tracks Traversed: " << test_sim << "\n" << std::endl;
+    scanfile <<"\n#####################################\n" << test_sim << endl;
+    scanfile << "Next\t\tNumber\nTrack\t\tof Tracks\nAccessed:\tTraversed:" << std::endl;
     scanfile.close();
     num_tracks_traversed = 0;
     num_tracks_requested = 0;

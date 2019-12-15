@@ -100,7 +100,7 @@ avg_num_track = (double) num_tracks_traversed/num_tracks_requested;
 
 //write into file
     scanfile.open("fifo.log.txt",std::ios_base::app);
-    scanfile <<"________________________________________\nTotal Tracks Traversed:";
+    scanfile <<"________________________________________\nTotal Tracks Traversed: ";
     scanfile << num_tracks_traversed << "\nAverage Seek Length: " << std::setprecision(5) << avg_num_track;
     scanfile.close();
 
@@ -112,7 +112,6 @@ void fifo::reset(std::string test_sim, int new_track){
     scanfile.open("fifo.log.txt", std::ios_base::app);
     scanfile <<"\n#####################################\n" << test_sim << endl;
     scanfile << "Next\t\tNumber\nTrack\t\tof Tracks\nAccessed:\tTraversed:" << std::endl;
-    
     scanfile.close();
     num_tracks_traversed= 0;
     num_tracks_requested = 0;
